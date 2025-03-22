@@ -1,9 +1,9 @@
-import { HomeComponent } from './components/auth/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { PlacesComponent } from './components/auth/places/places.component';
+import { PlacesComponent } from '../app/components/places/places.component';
 
 export const routes: Routes = [
   { path: 'auth/places', component: PlacesComponent },
