@@ -22,6 +22,10 @@ export class RequestBookingComponent {
   agreePrivacyPolicy: boolean = false;
   agreePaymentMethod: boolean = false;
 
+  // Loading and success states
+  isLoading: boolean = false;
+  isSuccess: boolean = false;
+
   // Event types for dropdown
   eventTypes = [
     { value: 'dayout', label: 'Day Out' },
@@ -129,6 +133,10 @@ export class RequestBookingComponent {
       return;
     }
 
+    // Set loading state
+    this.isLoading = true;
+    this.isSuccess = false;
+
     const formData = {
       name: this.name,
       dates: this.dates,
@@ -139,14 +147,25 @@ export class RequestBookingComponent {
       agreePrivacyPolicy: this.agreePrivacyPolicy,
       agreePaymentMethod: this.agreePaymentMethod
     };
-
     console.log('Form Data:', formData);
     alert('Booking request submitted successfully!');
 
-    // Generate and download the PDF report
-    this.generatePDFReport(formData);
+    // Simulate a delay for report generation
+    setTimeout(() => {
+      // Generate and download the PDF report
+      this.generatePDFReport(formData);
 
-    // Generate and download the CSV report
-    this.generateCSVReport(formData);
+      // Generate and download the CSV report
+      this.generateCSVReport(formData);
+
+      // Set success state
+      this.isLoading = false;
+      this.isSuccess = true;
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        this.isSuccess = false;
+      }, 5000);
+    }, 2000); // Simulate a 2-second delay
   }
 }
