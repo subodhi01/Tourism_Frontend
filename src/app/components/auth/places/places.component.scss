@@ -100,3 +100,38 @@
     max-width: 100%; /* Full width on smaller screens */
   }
 }
+/* places.component.css */
+
+/* Card Header Styles */
+.card-header {
+  padding: 1rem;
+}
+
+/* Request Booking Button Styles */
+.btn-request-booking {
+
+  padding-right: 500px;
+  top: 0.7rem;
+  right: 0.5rem;
+  background-color: #007bff; /* Dark blue color */
+  color: white;
+  border: none;
+
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover Effect */
+.btn-request-booking:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Active/Focus Effect */
+.btn-request-booking:active,
+.btn-request-booking:focus {
+  background-color: #004080; /* Even darker blue on active/focus */
+  outline: none;
+}

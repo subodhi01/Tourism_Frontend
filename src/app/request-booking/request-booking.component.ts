@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { jsPDF } from 'jspdf'; // For PDF generation
+import { saveAs } from 'file-saver'; // For file saving
 
 @Component({
   selector: 'app-request-booking',
@@ -85,6 +87,41 @@ export class RequestBookingComponent {
     }
   }
 
+  // Generate PDF Report
+  generatePDFReport(formData: any) {
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text('Booking Request Report', 10, 20);
+    doc.setFontSize(12);
+    doc.text(`Name: ${formData.name}`, 10, 30);
+    doc.text(`Dates: ${formData.dates}`, 10, 40);
+    doc.text(`Number of People: ${formData.numberOfPeople}`, 10, 50);
+    doc.text(`Description: ${formData.description}`, 10, 60);
+    doc.text(`Event Type: ${formData.eventType}`, 10, 70);
+    if (formData.eventType === 'custom') {
+      doc.text(`Custom Event Description: ${formData.customEventDescription}`, 10, 80);
+    }
+    doc.save('booking_request_report.pdf'); // Save the PDF
+  }
+
+  // Generate CSV Report
+  generateCSVReport(formData: any) {
+    const csvContent = [
+      ['Field', 'Value'],
+      ['Name', formData.name],
+      ['Dates', formData.dates],
+      ['Number of People', formData.numberOfPeople],
+      ['Description', formData.description],
+      ['Event Type', formData.eventType],
+      ['Custom Event Description', formData.eventType === 'custom' ? formData.customEventDescription : 'N/A']
+    ]
+      .map(row => row.join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'booking_request_report.csv'); // Save the CSV
+  }
+
   // Handle form submission
   onSubmit() {
     if (!this.isFormValid()) {
@@ -92,10 +129,6 @@ export class RequestBookingComponent {
       return;
     }
 
-    // Dummy success message
-    alert('Successfully booked!');
-
-    // Log form data (for debugging purposes)
     const formData = {
       name: this.name,
       dates: this.dates,
@@ -106,6 +139,14 @@ export class RequestBookingComponent {
       agreePrivacyPolicy: this.agreePrivacyPolicy,
       agreePaymentMethod: this.agreePaymentMethod
     };
+
     console.log('Form Data:', formData);
+    alert('Booking request submitted successfully!');
+
+    // Generate and download the PDF report
+    this.generatePDFReport(formData);
+
+    // Generate and download the CSV report
+    this.generateCSVReport(formData);
   }
 }
