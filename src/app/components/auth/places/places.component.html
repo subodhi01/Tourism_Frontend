@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div class="row">
+    <!-- Place Card -->
+    <div class="col-md-4 mb-4 d-flex" *ngFor="let place of places">
+      <div class="card h-100 shadow-sm d-flex flex-column border">
+        <!-- Image Slideshow -->
+        <div class="image-container">
+          <div class="image-wrapper">
+            <!-- Use ngFor and ngIf correctly -->
+            <img *ngFor="let image of place.images; let i = index"
+                 [src]="image" class="d-block w-100 card-img-top"
+                 alt="{{place.name}}" [ngClass]="{'active': i === 0}">
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body flex-grow-1">
+          <h5 class="card-title">{{place.name}}</h5>
+          <p class="card-text">{{place.description}}</p>
+          <p class="card-text"><small class="text-muted">{{place.location}}</small></p>
+
+          <!-- Rating -->
+          <div class="rating mb-3">
+            <span *ngFor="let star of [1,2,3,4,5]"
+                  [ngClass]="{'fa fa-star': true, 'checked': star <= place.rating}"></span>
+            <span class="ms-2">{{place.rating}}/5</span>
+          </div>
+
+          <!-- Availability Calendar -->
+          <div class="availability mb-3">
+            <strong>Available Dates:</strong>
+            <ul class="list-unstyled">
+              <li *ngFor="let date of place.availability">{{date}}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="card-footer bg-transparent border-top-0 text-center">
+          <button class="btn btn-dark-blue me-2">Request Booking</button>
+          <button class="btn btn-outline-dark-blue">Explore More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
