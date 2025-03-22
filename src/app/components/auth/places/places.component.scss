@@ -73,15 +73,21 @@
 /* Layout Adjustments for Cards */
 .container {
   max-width: 1200px;
+  margin: 0 auto; /* Center the container */
+  padding: 0 15px; /* Add some padding to the sides */
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Center the cards horizontally */
+  gap: 30px; /* Adjust the value to control the spacing between the cards */
+  margin-top: 50px;
 }
 
 .col-md-4 {
-  flex: 1 1 30%;
+  flex: 1 1 30%; /* Adjust the flex basis to control the width of the cards */
+  max-width: 30%; /* Ensure the cards don't exceed 30% of the container width */
   margin-bottom: 1.5rem;
   display: flex;
   justify-content: center;
@@ -91,21 +97,6 @@
 @media (max-width: 768px) {
   .col-md-4 {
     flex: 1 1 100%;
+    max-width: 100%; /* Full width on smaller screens */
   }
 }
-/* Card Styling */
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Add gap between cards */
-.row {
-  gap: 30px; /* Adjust the value to control the spacing between the cards */
-  margin-top: 50px;
-}
-
