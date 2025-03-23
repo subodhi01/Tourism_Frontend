@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule], // Import RouterModule for routerLink
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -22,6 +22,8 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.invalid) {
+      // Optional: Mark all fields as touched to show all errors
+      this.loginForm.markAllAsTouched();
       return;
     }
     console.log('Login form submitted', this.loginForm.value);

@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, PLATFORM_ID, Inject, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { PlacesService } from '../../../services/places.service';
+import { PlacesService } from '../../services/places.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 

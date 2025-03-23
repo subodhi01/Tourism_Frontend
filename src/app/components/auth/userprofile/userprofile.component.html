@@ -1,0 +1,139 @@
+<div class="profile-container">
+  <div class="profile-box">
+    <h2>User Profile</h2>
+    <p class="profile-subtitle">Manage your account details</p>
+
+    <!-- Profile Information -->
+    <div class="profile-info">
+      <div class="profile-picture">
+        <img [src]="profilePicture" alt="Profile Picture" *ngIf="profilePicture" />
+        <div class="profile-placeholder" *ngIf="!profilePicture">No Image</div>
+        <input type="file" (change)="onFileChange($event)" accept="image/*" id="profilePicInput" hidden />
+        <label for="profilePicInput" class="profile-upload-btn">Upload Picture</label>
+      </div>
+
+      <div class="profile-user-details">
+        <div class="profile-detail-group">
+          <label>Username:</label>
+          <span>{{ user.username }}</span>
+        </div>
+        <div class="profile-detail-group">
+          <label>Email:</label>
+          <span>{{ user.email }}</span>
+        </div>
+        <div class="profile-detail-group">
+          <label>Telephone:</label>
+          <span>{{ user.telephone }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit/Delete Buttons -->
+    <div class="profile-action-buttons">
+      <button (click)="toggleEditMode()" class="profile-edit-btn">
+        {{ editMode ? 'Save' : 'Edit Profile' }}
+      </button>
+      <button (click)="deleteProfile()" class="profile-delete-btn">Delete Profile</button>
+    </div>
+
+    <!-- Edit Form (Visible when editMode is true) -->
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" *ngIf="editMode">
+      <div class="profile-form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" placeholder="Enter your username" />
+        <div *ngIf="profileForm.get('username')?.touched && profileForm.get('username')?.invalid" class="profile-error">
+          Username is required
+        </div>
+      </div>
+
+      <div class="profile-form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" />
+        <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid" class="profile-error">
+          <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</div>
+          <div *ngIf="profileForm.get('email')?.errors?.['email']">Please enter a valid email address</div>
+        </div>
+      </div>
+
+      <div class="profile-form-group">
+        <label for="telephone">Telephone Number</label>
+        <input type="tel" id="telephone" formControlName="telephone" placeholder="Enter your 10-digit telephone number" />
+        <div *ngIf="profileForm.get('telephone')?.touched && profileForm.get('telephone')?.invalid" class="profile-error">
+          <div *ngIf="profileForm.get('telephone')?.errors?.['required']">Telephone number is required</div>
+          <div *ngIf="profileForm.get('telephone')?.errors?.['pattern']">Please enter a valid 10-digit phone number</div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Budget and Preferences Section -->
+    <div class="profile-budget-preferences-section">
+      <h3>Budget & Preferences</h3>
+      <div class="profile-budget-display" *ngIf="!editMode">
+        <div class="profile-detail-group">
+          <label>Budget:</label>
+          <span>{{ user.budget ? '$' + user.budget : 'Not Set' }}</span>
+        </div>
+        <div class="profile-detail-group">
+          <label>Preferences:</label>
+          <span>{{ user.preferences.length ? user.preferences.join(', ') : 'None Selected' }}</span>
+        </div>
+      </div>
+
+      <!-- Edit Budget and Preferences (Visible in editMode) -->
+      <form [formGroup]="profileForm" *ngIf="editMode">
+        <div class="profile-form-group">
+          <label for="budget">Budget (in USD)</label>
+          <input type="number" id="budget" formControlName="budget" placeholder="Enter your budget" min="0" />
+          <div *ngIf="profileForm.get('budget')?.touched && profileForm.get('budget')?.invalid" class="profile-error">
+            Budget must be a positive number
+          </div>
+        </div>
+
+        <div class="profile-preferences-group">
+          <label>Preferences</label>
+          <div class="profile-checkbox-group">
+            <label *ngFor="let pref of availablePreferences">
+              <input type="checkbox" [formControlName]="pref" />
+              <span>{{ pref }}</span>
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Reset Password Section -->
+    <div class="profile-reset-password-section">
+      <h3>Reset Password</h3>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
+        <div class="profile-form-group">
+          <label for="currentPassword">Current Password</label>
+          <input type="password" id="currentPassword" formControlName="currentPassword" placeholder="Enter current password" />
+          <div *ngIf="resetPasswordForm.get('currentPassword')?.touched && resetPasswordForm.get('currentPassword')?.invalid" class="profile-error">
+            Current password is required
+          </div>
+        </div>
+
+        <div class="profile-form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" formControlName="newPassword" placeholder="Enter new password" />
+          <div *ngIf="resetPasswordForm.get('newPassword')?.touched && resetPasswordForm.get('newPassword')?.invalid" class="profile-error">
+            New password is required
+          </div>
+        </div>
+
+        <div class="profile-form-group">
+          <label for="confirmNewPassword">Confirm New Password</label>
+          <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" placeholder="Confirm new password" />
+          <div *ngIf="resetPasswordForm.get('confirmNewPassword')?.touched && resetPasswordForm.get('confirmNewPassword')?.invalid" class="profile-error">
+            Please confirm your new password
+          </div>
+          <div *ngIf="resetPasswordForm.errors?.['mismatch'] && resetPasswordForm.get('confirmNewPassword')?.touched" class="profile-error">
+            Passwords do not match
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+      </form>
+    </div>
+  </div>
+</div>
