@@ -1,0 +1,133 @@
+/* General Styles */
+.auth-body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Register Box */
+.auth-register-box {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: auth-fadeIn 0.5s ease-in-out;
+}
+
+.auth-register-box h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #2a5298;
+}
+
+.auth-subtitle {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Form Styles */
+.auth-form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.auth-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.auth-form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-form-group input:focus {
+  border-color: #2a5298;
+  box-shadow: 0 0 8px rgba(42, 82, 152, 0.3);
+  outline: none;
+}
+
+/* Error Message Styles */
+.auth-error {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #ff4d4d;
+  font-weight: 500;
+}
+
+/* Button Styles */
+.auth-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2a5298;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.auth-button:disabled {
+  background: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #1e3c72;
+  transform: translateY(-2px);
+}
+
+/* Login Link */
+.auth-login-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.auth-login-link a {
+  color: #2a5298;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-login-link a:hover {
+  color: #1e3c72;
+}
+
+/* Animations */
+@keyframes auth-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
