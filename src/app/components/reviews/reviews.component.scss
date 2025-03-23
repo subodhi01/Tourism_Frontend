@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  position: relative;
+}
+
+.reviews-container {
+  padding: 4rem;
+  max-width: 1280px;
+  margin: 0;
+  background: linear-gradient(to bottom, #e0eafc, #cfdef3);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  z-index: 1;
+
+  h3 {
+    width: 70%;
+    margin: 0;
+  }
+}
+
+.reviews-list {
+  margin-bottom: 3rem;
+}
+
+.review-card {
+  background: linear-gradient(to left, #ece9e6, #ffffff);
+  width: 800px;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(1, 0, 81, 0.5);
+  }
+}
+
+.review-cont {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.reviewer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewer-name {
+  font-style: italic;
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  color: #444;
+}
+
+.rating-stars {
+  margin-top: 0.1rem;
+}
+
+.star {
+  font-size: 1rem;
+  color: gainsboro; /* Unfilled stars */
+  margin-right: 3px;
+
+  .filled {
+    color: gold; /* Gold for filled stars */
+  }
+}
+
+.review-comment {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '"';
+    position: absolute;
+    font-size: 17.5em;
+    right: 0;
+    top: -5rem;
+    // vertical-align: middle;
+    color: grey;
+    font-family: "Island Moments", cursive;
+    opacity: 0.25;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-family: "Quicksand", sans-serif;
+    line-height: 1.6;
+    margin: 10px 0;
+    color: darkgray;
+    text-align: right;
+    width: 85%;
+  }
+}
+
+.actions {
+  position: absolute;
+  display: flex;
+  right: -4.5rem;
+  bottom: 1rem;
+  // vertical-align: middle;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 10px;
+  background-color: azure;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all ease-in-out 0.35s;
+
+  button {
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    background: none;
+    transition: all ease-in-out 0.35s;
+  }
+
+  button:first-child {
+    border: 1px solid #22c55e;
+    color: #22c55e;
+
+    &:hover {
+      background-color: #22c55e;
+      color: #dcfce7;
+    }
+  }
+
+  button:last-child {
+    border: 1px solid #ef4444;
+    color: #ef4444;
+
+    &:hover {
+      background-color: #ef4444;
+      color: #fee2e2;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(1, 0, 81, 0.5);
+  }
+}
+
+.add-review-btn {
+  background-color: #94a3b8;
+  color: whitesmoke;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: #1e293b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}

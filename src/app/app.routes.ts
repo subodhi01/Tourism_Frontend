@@ -10,6 +10,8 @@ import { UserProfileComponent } from './components/auth/userprofile/userprofile.
 
 
 import { RequestBookingComponent } from './request-booking/request-booking.component';
+import { ReviewScreenComponent } from './pages/review-screen/review-screen.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 
 export const routes: Routes = [
   { path: 'auth/places', component: PlacesComponent },
@@ -18,6 +20,8 @@ export const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'auth/userprofile', component: UserProfileComponent },
+  { path: 'reviews/:type/:itemId', component: ReviewsComponent },
+  { path: 'reviews', component: ReviewScreenComponent },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: 'auth/login' } // Wildcard route
 ];

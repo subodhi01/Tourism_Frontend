@@ -1,0 +1,26 @@
+<div class="container">
+  <label for="email">Select Email:</label>
+  <select id="email" [(ngModel)]="selectedEmail" (ngModelChange)="onEmailChange()">
+    <option value="">-- Choose an email --</option>
+    <option *ngFor="let email of emails" [value]="email">{{ email }}</option>
+  </select>
+
+  <label for="type">Select Accommodation Type:</label>
+  <select id="type" [(ngModel)]="selectedType" (ngModelChange)="onTypeChange()">
+    <option value="">-- Choose a type --</option>
+    <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+  </select>
+
+  <label for="itemId">Select Accommodation ID:</label>
+  <select id="itemId" [(ngModel)]="selectedItemId" [disabled]="!selectedType">
+    <option value="">-- Choose an ID --</option>
+    <option *ngFor="let id of itemIds" [value]="id">{{ id }}</option>
+  </select>
+
+  <button 
+    (click)="continue()" 
+    [disabled]="!selectedEmail || !selectedType || !selectedItemId"
+  >
+    Continue
+  </button>
+</div>

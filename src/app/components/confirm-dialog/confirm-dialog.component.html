@@ -1,0 +1,10 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <h2>Confirmation</h2>
+    <p>{{ message }}</p>
+    <div class="actions">
+      <button (click)="onNoClick()">No</button>
+      <button (click)="onYesClick()">Yes</button>
+    </div>
+  </div>
+</div> 
