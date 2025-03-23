@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+<<<<<<< HEAD
 import { PlacesComponent } from '../app/components/places/places.component';
 
 import { UserProfileComponent } from './components/auth/userprofile/userprofile.component';
@@ -10,6 +11,13 @@ import { UserProfileComponent } from './components/auth/userprofile/userprofile.
 
 
 import { RequestBookingComponent } from './request-booking/request-booking.component';
+=======
+
+import { PlacesComponent } from '../app/components/places/places.component';
+import { UserProfileComponent } from './components/auth/userprofile/userprofile.component';
+
+
+>>>>>>> d27bad1 (subo2)
 
 export const routes: Routes = [
   { path: 'auth/places', component: PlacesComponent },
