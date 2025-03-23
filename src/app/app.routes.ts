@@ -6,11 +6,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 <<<<<<< HEAD
 <<<<<<< HEAD
 import { PlacesComponent } from '../app/components/places/places.component';
-
 import { UserProfileComponent } from './components/auth/userprofile/userprofile.component';
-
-
-
 import { RequestBookingComponent } from './request-booking/request-booking.component';
 =======
 
@@ -27,6 +23,9 @@ import { RequestBookingComponent } from './request-booking/request-booking.compo
 
 
 >>>>>>> 61e58ac (subo3)
+
+
+
 
 export const routes: Routes = [
   { path: 'auth/places', component: PlacesComponent },
