@@ -1,3 +1,28 @@
+/* Variables */
+$primary-blue: #1e88e5;
+$secondary-blue: #64b5f6;
+$dark-blue: #1565c0;
+$light-blue: #e3f2fd;
+$white: #ffffff;
+$gray: #757575;
+$light-gray: #f5f5f5;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+/* Mixins */
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin hover-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow;
+  }
+}
+
 /* General Styles */
 body {
   font-family: 'Poppins', sans-serif;
@@ -231,4 +256,370 @@ footer {
   padding: 1rem;
   background-color: #333;
   color: white;
+}
+
+/* Global Styles */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h2 {
+    font-size: 2.5rem;
+    color: $dark-blue;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: $gray;
+    font-size: 1.1rem;
+  }
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url('/assets/images/Galle-Lighthouse.jpg') ;
+  @include flex-center;
+  color: $white;
+  text-align: center;
+  overflow: hidden;
+
+  .hero-content {
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 2rem;
+
+    .hero-title {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease 0.2s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      animation: fadeInUp 1s ease 0.4s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba($primary-blue, 0.3), rgba($secondary-blue, 0.3));
+  }
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  @include hover-effect;
+  border: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: $primary-blue;
+  color: $white;
+  
+  &:hover {
+    background-color: $dark-blue;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: $white;
+  border: 2px solid $white;
+  
+  &:hover {
+    background-color: $white;
+    color: $primary-blue;
+  }
+}
+
+/* Destinations Section */
+.destinations {
+  padding: 5rem 2rem;
+  background-color: $light-gray;
+
+  .destination-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .destination-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    @include hover-effect;
+
+    .card-image {
+      position: relative;
+      height: 300px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .card-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: $white;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+          opacity: 0.9;
+        }
+      }
+
+      &:hover {
+        .card-overlay {
+          transform: translateY(0);
+        }
+        
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+/* Experience Section */
+.experience {
+  padding: 5rem 2rem;
+  background-color: $white;
+
+  .experience-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      color: $dark-blue;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .experience-item {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    background-color: $light-blue;
+    @include hover-effect;
+
+    i {
+      font-size: 2.5rem;
+      color: $primary-blue;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: $dark-blue;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: $gray;
+    }
+  }
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 5rem 2rem;
+  background-color: $light-gray;
+
+  .testimonial-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background-color: $white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: $shadow;
+    @include hover-effect;
+
+    .rating {
+      color: #ffd700;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      color: $gray;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .author-info {
+        h4 {
+          color: $dark-blue;
+          margin-bottom: 0.25rem;
+        }
+
+        p {
+          color: $gray;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+/* Newsletter Section */
+.newsletter {
+  padding: 5rem 2rem;
+  background-color: $primary-blue;
+  color: $white;
+  text-align: center;
+
+  .newsletter-content {
+    max-width: 600px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+
+      input {
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        border-radius: 30px;
+        font-size: 1rem;
+        outline: none;
+
+        &:focus {
+          box-shadow: 0 0 0 2px rgba($white, 0.3);
+        }
+      }
+
+      button {
+        padding: 1rem 2rem;
+        background-color: $white;
+        color: $primary-blue;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        @include hover-effect;
+
+        &:hover {
+          background-color: $light-blue;
+        }
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    .hero-content {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+
+  .section-header {
+    h2 {
+      font-size: 2rem;
+    }
+  }
 }

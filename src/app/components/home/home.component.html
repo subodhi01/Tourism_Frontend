@@ -6,75 +6,100 @@
   <title>Discover Galle - Sri Lanka</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-
-  <div class="slideshow-container">
-    <!-- Slide 1 -->
-    <div class="slide fade">
-      <img src="assets/images/Galle-Lighthouse.jpg" alt="Discover Galle">
-      <div class="text-overlay">Discover Galle</div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Discover the Magic of Galle</h1>
+      <p class="hero-subtitle">Where History Meets Paradise</p>
+      <div class="hero-buttons">
+        <button class="btn-primary">Explore Now</button>
+        <button class="btn-secondary">Watch Video</button>
+      </div>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="slide fade">
-      <img src="assets/images/image5.jpg" alt="Visit Galle">
-      <div class="text-overlay animated-text">Visit Galle</div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="slide fade">
-      <img src="assets/images/image4.jpg" alt="Beautiful South">
-      <div class="text-overlay">Beautiful South</div>
-    </div>
-  </div>
-
-  <section id="description">
-    <h1>Welcome to Galle</h1>
-    <p>Explore the historic city of Galle, known for its stunning fort, beautiful beaches, and rich cultural heritage. Plan your trip with us and discover the best adventures Galle has to offer.</p>
-    <button class="cta">Plan Your Trip</button>
+    <div class="hero-overlay"></div>
   </section>
 
-  <section id="features">
-    <h2>Our Features</h2>
-    <div class="feature-cards">
-      <div class="card">
-        <img src="assets/images/image1.jpg" alt="Booking">
-        <h3>Book Adventures</h3>
-        <p>Book small, beautiful adventure places with ease.</p>
-      </div>
-      <div class="card">
-        <img src="assets/images/image2.jpeg" alt="Travel Plan">
-        <h3>Create Travel Plans</h3>
-        <p>Make your own travel plan or use our AI to generate one.</p>
-      </div>
-      <div class="card">
-        <img src="assets/images/image5.jpg" alt="AI Travel Plan">
-        <h3>AI Travel Plan</h3>
-        <p>Let our AI create a personalized travel plan for you.</p>
+  <!-- Featured Destinations -->
+  <section class="destinations">
+    <div class="section-header">
+      <h2>Popular Destinations</h2>
+      <p>Explore the most beautiful places in Galle</p>
+    </div>
+    <div class="destination-grid">
+      <div class="destination-card" *ngFor="let destination of popularDestinations">
+        <div class="card-image">
+          <img [src]="destination.image" [alt]="destination.name">
+          <div class="card-overlay">
+            <h3>{{destination.name}}</h3>
+            <p>{{destination.description}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="feedback">
-    <h2>What Our Visitors Say</h2>
-    <div class="feedback-container">
-      <div class="feedback-card">
-        <img src="assets/images/u1.jpg" alt="User 1">
-        <div class="stars">★★★★★</div>
-        <p>"Amazing experience! The AI travel plan was spot on!"</p>
+  <!-- Experience Section -->
+  <section class="experience">
+    <div class="experience-content">
+      <h2>Your Perfect Galle Experience</h2>
+      <div class="experience-grid">
+        <div class="experience-item">
+          <i class="fas fa-map-marked-alt"></i>
+          <h3>Guided Tours</h3>
+          <p>Expert local guides to show you the hidden gems</p>
+        </div>
+        <div class="experience-item">
+          <i class="fas fa-hotel"></i>
+          <h3>Luxury Stays</h3>
+          <p>Handpicked accommodations for your comfort</p>
+        </div>
+        <div class="experience-item">
+          <i class="fas fa-utensils"></i>
+          <h3>Local Cuisine</h3>
+          <p>Authentic Sri Lankan flavors and experiences</p>
+        </div>
       </div>
-      <div class="feedback-card">
-        <img src="assets/images/u2.jpg" alt="User 2">
-        <div class="stars">★★★★☆</div>
-        <p>"Loved the historic sites and the beaches. Highly recommend!"</p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-header">
+      <h2>What Our Travelers Say</h2>
+      <p>Real experiences from real people</p>
+    </div>
+    <div class="testimonial-slider">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-content">
+          <div class="rating">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+          <p class="testimonial-text">{{testimonial.text}}</p>
+          <div class="testimonial-author">
+            <img [src]="testimonial.authorImage" [alt]="testimonial.authorName">
+            <div class="author-info">
+              <h4>{{testimonial.authorName}}</h4>
+              <p>{{testimonial.authorLocation}}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="feedback-card">
-        <img src="assets/images/u3.jpg" alt="User 3">
-        <div class="stars">★★★★★</div>
-        <p>"The booking process was seamless. Will visit again!"</p>
-      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="newsletter-content">
+      <h2>Stay Updated</h2>
+      <p>Subscribe to our newsletter for the latest updates and exclusive offers</p>
+      <form class="newsletter-form" (ngSubmit)="onSubmitNewsletter($event)">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn-primary">Subscribe</button>
+      </form>
     </div>
   </section>
 
