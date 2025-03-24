@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 $primary-color: #2a5298;
 $secondary-color: #1e3c72;
@@ -111,7 +113,7 @@ $shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         color: $light-color;
 
         &:hover {
-          background: darken($accent-color, 10%);
+          background: color.adjust($accent-color, $lightness: -10%);
           transform: translateY(-2px);
         }
       }
