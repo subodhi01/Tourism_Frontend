@@ -1,47 +1,278 @@
-.header {
-  font-family: 'Poppins', sans-serif;
-  background-color: #333;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
+// Variables
+$primary-color: #2a5298;
+$secondary-color: #1e3c72;
+$accent-color: #ff6f61;
+$dark-color: #333;
+$light-color: #fff;
+$gray-color: #666;
+$shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-
-    li {
-      display: inline;
-      a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        padding: 5px 10px;
-      }
-      a:hover {
-        border-bottom: 2px solid yellow;
-      }
-    }
+@mixin hover-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
   }
 }
 
-header .auth-buttons .signin {
-  background-color: #555;
-  color: white;
+.header {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: $light-color;
+  position: relative;
+  overflow: hidden;
+
+  .header-top {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo {
+    a {
+      color: $light-color;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      @include flex-center;
+      gap: 0.5rem;
+      @include hover-effect;
+
+      i {
+        font-size: 1.8rem;
+      }
+    }
+  }
+
+  .main-nav {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 2rem;
+
+      li {
+        a {
+          color: $light-color;
+          text-decoration: none;
+          font-size: 1rem;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.signin {
+        background: transparent;
+        color: $light-color;
+        border: 2px solid $light-color;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+      }
+
+      &.signup {
+        background: $accent-color;
+        color: $light-color;
+
+        &:hover {
+          background: darken($accent-color, 10%);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .header-bottom {
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: url('/assets/images/Galle-Lighthouse.jpg') center/cover no-repeat;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: fadeInDown 1s ease;
+      }
+
+      p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.3s;
+        animation-fill-mode: both;
+      }
+    }
+  }
+
+  .wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-size: 50% 100px;
+    animation: wave 15s linear infinite;
+    transform-origin: bottom;
+  }
+
+  .wave1 {
+    animation: wave 30s linear infinite;
+    z-index: 5;
+    opacity: 0.5;
+    animation-delay: 0s;
+    bottom: 0;
+  }
+
+  .wave2 {
+    animation: wave 15s linear infinite;
+    z-index: 4;
+    opacity: 0.3;
+    animation-delay: -5s;
+    bottom: 10px;
+  }
+
+  .wave3 {
+    animation: wave 30s linear infinite;
+    z-index: 3;
+    opacity: 0.2;
+    animation-delay: -2s;
+    bottom: 15px;
+  }
 }
 
-header .auth-buttons .signup {
-  background-color: #ff6f61;
-  color: white;
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-header .auth-buttons button {
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .header {
+    .header-top {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .main-nav {
+      ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .header-bottom {
+      height: 300px;
+      padding: 2rem 1rem;
+
+      .header-content {
+        h1 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }

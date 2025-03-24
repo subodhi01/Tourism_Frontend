@@ -31,17 +31,17 @@ export class HomeComponent implements OnInit {
     {
       name: 'Galle Fort',
       description: 'Historic 16th-century fort with stunning ocean views',
-      image: 'assets/images/Galle-Lighthouse.jpg'
+      image: '../../../assets/images/Galle-Lighthouse.jpg'
     },
     {
       name: 'Unawatuna Beach',
       description: 'Pristine beach with crystal clear waters',
-      image: 'assets/images/image5.jpg'
+      image: '../../../assets/images/image5.jpg'
     },
     {
       name: 'Jungle Beach',
       description: 'Secluded beach surrounded by lush greenery',
-      image: 'assets/images/image4.jpg'
+      image: '../../../assets/images/image4.jpg'
     }
   ];
 
@@ -50,19 +50,19 @@ export class HomeComponent implements OnInit {
       text: 'The guided tour of Galle Fort was absolutely incredible. Our guide was knowledgeable and made history come alive!',
       authorName: 'Sarah Johnson',
       authorLocation: 'United Kingdom',
-      authorImage: 'assets/images/u1.jpg'
+      authorImage: '../../../assets/images/u1.jpg'
     },
     {
       text: 'The local cuisine experience was unforgettable. We got to try authentic Sri Lankan dishes and learn about their preparation.',
       authorName: 'Michael Chen',
       authorLocation: 'Singapore',
-      authorImage: 'assets/images/u2.jpg'
+      authorImage: '../../../assets/images/u2.jpg'
     },
     {
       text: 'The luxury accommodations exceeded our expectations. The ocean view from our room was breathtaking.',
       authorName: 'Emma Davis',
       authorLocation: 'Australia',
-      authorImage: 'assets/images/u3.jpg'
+      authorImage: '../../../assets/images/u3.jpg'
     }
   ];
 
