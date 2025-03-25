@@ -12,6 +12,7 @@
           formControlName="email" 
           placeholder="Enter your email"
           required 
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
         />
         <!-- Error messages for email -->
         <div class="auth-error-message" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
@@ -32,6 +33,7 @@
           formControlName="password" 
           placeholder="Enter your password"
           required 
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
         />
         <!-- Optional: Add password error message -->
         <div class="auth-error-message" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
@@ -47,8 +49,10 @@
         <a href="#" class="auth-forgot-password">Forgot Password?</a>
       </div>
 
-      <button type="submit" class="auth-button" [disabled]="loginForm.invalid">
-        Sign In
+      <div class="error-message" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" class="auth-button" [disabled]="loginForm.invalid || loading">
+        {{ loading ? 'Logging in...' : 'Sign In' }}
       </button>
 
       <div class="auth-register-link">

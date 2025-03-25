@@ -1,22 +1,35 @@
 <header class="header">
   <nav>
+    <div class="logo">Tourism Galle</div>
     <ul>
-
-    <div class="logo">Discover Galle</div>
-      <nav>
-        <ul>
-          <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/hotels">Hotels</a></li>
-          <li><a routerLink="/restaurants">Restaurants</a></li>
-          <li><a routerLink="/activities">Activities</a></li>
-          <li><a routerLink="/contact">Contact Us</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button class="signin">Sign In</button>
-        <button class="signup">Sign Up</button>
-      </div>
-
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/hotels">Hotels</a></li>
+      <li><a routerLink="/restaurants">Restaurants</a></li>
+      <li><a routerLink="/activities">Activities</a></li>
+      <li><a routerLink="/contact">Contact Us</a></li>
     </ul>
+    <div class="auth-buttons">
+      <ng-container *ngIf="!isLoggedIn">
+        <button class="signin" (click)="navigateToSignIn()">Sign In</button>
+        <button class="signup" (click)="navigateToSignUp()">Sign Up</button>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <div class="user-profile">
+          <div class="profile-container" (click)="toggleDropdown()">
+            <img [src]="currentUser?.profilePhoto || 'assets/default-avatar.png'" alt="Profile" class="profile-photo">
+            <span class="user-name">{{ currentUser?.fullName }}</span>
+            <span class="arrow" [class.open]="isDropdownOpen">▼</span>
+          </div>
+          <div class="dropdown-menu" [class.show]="isDropdownOpen">
+            <a routerLink="/profile" class="dropdown-item">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+            <button class="dropdown-item" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </nav>
 </header>

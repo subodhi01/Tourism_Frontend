@@ -3,7 +3,14 @@
     <h2>Register</h2>
     <p class="auth-subtitle">Create a new account</p>
 
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <!-- Show OTP Verification component when registration is successful -->
+    <app-otp-verification 
+      *ngIf="showOTPVerification" 
+      [email]="userEmail">
+    </app-otp-verification>
+
+    <!-- Show registration form when not showing OTP verification -->
+    <form *ngIf="!showOTPVerification" [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="auth-form-group">
         <label for="fullName">Full Name</label>
         <input 
@@ -68,7 +75,12 @@
           required 
         />
         <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="auth-error">
-          Password is required
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">
+            Password is required
+          </div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters long
+          </div>
         </div>
       </div>
 
@@ -91,8 +103,16 @@
         </div>
       </div>
 
-      <button type="submit" class="auth-button" [disabled]="registerForm.invalid || registerForm.pristine">
-        Register
+      <!-- Show error message if any -->
+      <div *ngIf="error" class="auth-error-message">
+        {{ error }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="auth-button" 
+        [disabled]="registerForm.invalid || registerForm.pristine || loading">
+        {{ loading ? 'Registering...' : 'Register' }}
       </button>
 
       <div class="auth-login-link">
