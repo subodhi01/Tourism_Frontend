@@ -1,6 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
+
+interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  telephone: string;
+  profilePhoto?: string;
+}
 
 @Component({
   selector: 'app-header',
@@ -9,4 +18,52 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent { }
+export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  currentUser: User | null = null;
+  isDropdownOpen: boolean = false;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
+    console.log('HeaderComponent constructed');
+  }
+
+  ngOnInit() {
+    console.log('HeaderComponent initialized');
+    this.authService.currentUser$.subscribe(user => {
+      console.log('User state changed in header:', user);
+      this.isLoggedIn = !!user;
+      this.currentUser = user;
+      console.log('Header state updated:', { isLoggedIn: this.isLoggedIn, currentUser: this.currentUser });
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-profile')) {
+      this.isDropdownOpen = false;
+    }
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  navigateToSignIn() {
+    this.router.navigate(['/auth/login']);
+  }
+
+  navigateToSignUp() {
+    this.router.navigate(['/auth/register']);
+  }
+
+  logout() {
+    console.log('Logging out from header');
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+    this.isDropdownOpen = false;
+  }
+}
