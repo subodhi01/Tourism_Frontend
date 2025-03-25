@@ -1,8 +1,7 @@
 <header class="header">
   <nav>
     <ul>
-
-    <div class="logo">Discover Galle</div>
+      <div class="logo">Discover Galle</div>
       <nav>
         <ul>
           <li><a routerLink="/">Home</a></li>
@@ -13,10 +12,9 @@
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signin">Sign In</button>
-        <button class="signup">Sign Up</button>
+        <button class="signin" (click)="navigateToSignIn()">Sign In</button>
+        <button class="signup" (click)="navigateToSignUp()">Sign Up</button>
       </div>
-
     </ul>
   </nav>
 </header>
