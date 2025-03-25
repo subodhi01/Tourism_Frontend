@@ -7,6 +7,8 @@ const OTPVerification = ({ email }) => {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [resendDisabled, setResendDisabled] = useState(false);
+    const [countdown, setCountdown] = useState(60);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -21,7 +23,6 @@ const OTPVerification = ({ email }) => {
             });
 
             if (response.data.message === 'Email verified successfully') {
-                // Show success message
                 alert('Email verified successfully! Please login.');
                 navigate('/login');
             }
@@ -33,8 +34,12 @@ const OTPVerification = ({ email }) => {
     };
 
     const handleResendOTP = async () => {
+        if (resendDisabled) return;
+        
         setError('');
         setLoading(true);
+        setResendDisabled(true);
+        setCountdown(60);
 
         try {
             const response = await axios.post('https://localhost:7001/api/auth/resend-otp', {
@@ -42,10 +47,23 @@ const OTPVerification = ({ email }) => {
             });
 
             if (response.data.message === 'OTP resent successfully') {
+                // Start countdown
+                const timer = setInterval(() => {
+                    setCountdown((prev) => {
+                        if (prev <= 1) {
+                            clearInterval(timer);
+                            setResendDisabled(false);
+                            return 0;
+                        }
+                        return prev - 1;
+                    });
+                }, 1000);
+
                 alert('New OTP has been sent to your email');
             }
         } catch (err) {
             setError(err.response?.data || 'Failed to resend OTP');
+            setResendDisabled(false);
         } finally {
             setLoading(false);
         }
@@ -55,7 +73,11 @@ const OTPVerification = ({ email }) => {
         <div className="otp-verification-container">
             <div className="otp-verification-box">
                 <h2>Email Verification</h2>
-                <p>Please enter the verification code sent to your email</p>
+                <div className="email-info">
+                    <p>We've sent a verification code to:</p>
+                    <p className="email-address">{email}</p>
+                </div>
+                <p className="instruction">Please enter the 6-digit code to complete your registration</p>
                 
                 <form onSubmit={handleSubmit}>
                     <div className="otp-input-group">
@@ -66,6 +88,7 @@ const OTPVerification = ({ email }) => {
                             onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                             placeholder="Enter 6-digit code"
                             required
+                            autoFocus
                         />
                     </div>
 
@@ -80,10 +103,10 @@ const OTPVerification = ({ email }) => {
                     <p>Didn't receive the code?</p>
                     <button 
                         onClick={handleResendOTP} 
-                        disabled={loading}
+                        disabled={resendDisabled || loading}
                         className="resend-button"
                     >
-                        Resend OTP
+                        {resendDisabled ? `Resend OTP (${countdown}s)` : 'Resend OTP'}
                     </button>
                 </div>
             </div>

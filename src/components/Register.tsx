@@ -4,27 +4,40 @@ import { useNavigate } from 'react-router-dom';
 import OTPVerification from './OTPVerification';
 import './Register.css';
 
-const Register = () => {
-    const [formData, setFormData] = useState({
+interface RegisterFormData {
+    fullName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    role: string;
+}
+
+interface RegisterResponse {
+    message: string;
+    success: boolean;
+}
+
+const Register: React.FC = () => {
+    const [formData, setFormData] = useState<RegisterFormData>({
         fullName: '',
         email: '',
         password: '',
         confirmPassword: '',
         role: 'User'
     });
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [showOTPVerification, setShowOTPVerification] = useState(false);
+    const [error, setError] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [showOTPVerification, setShowOTPVerification] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         setError('');
         setLoading(true);
@@ -53,7 +66,7 @@ const Register = () => {
 
             console.log('Sending registration request with data:', requestData);
 
-            const response = await axios.post('https://localhost:7001/api/auth/register', requestData, {
+            const response = await axios.post<RegisterResponse>('https://localhost:7001/api/auth/register', requestData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
@@ -75,14 +88,16 @@ const Register = () => {
             }
         } catch (err) {
             console.error('Registration error:', err);
-            console.error('Error response:', err.response?.data);
-            console.error('Error status:', err.response?.status);
-            console.error('Error headers:', err.response?.headers);
-            
-            if (err.response?.data) {
-                setError(err.response.data);
-            } else if (err.message) {
-                setError(err.message);
+            if (axios.isAxiosError(err)) {
+                console.error('Error response:', err.response?.data);
+                console.error('Error status:', err.response?.status);
+                console.error('Error headers:', err.response?.headers);
+                
+                if (err.response?.data) {
+                    setError(err.response.data.message || 'Registration failed');
+                } else {
+                    setError(err.message || 'Registration failed. Please try again.');
+                }
             } else {
                 setError('Registration failed. Please try again.');
             }
@@ -139,7 +154,7 @@ const Register = () => {
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            minLength="6"
+                            minLength={6}
                         />
                     </div>
 
