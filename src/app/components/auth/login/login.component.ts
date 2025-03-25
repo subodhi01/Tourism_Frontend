@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -15,11 +19,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   error: string = '';
   loading: boolean = false;
-  private apiUrl = 'https://localhost:44399/api';
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -37,19 +40,20 @@ export class LoginComponent {
     this.loading = true;
     this.error = '';
 
-    const formData = this.loginForm.value;
-    console.log('Login form submitted', formData);
+    const { email, password } = this.loginForm.value;
+    console.log('Login form submitted', { email, password });
 
-    this.http.post(`${this.apiUrl}/auth/login`, formData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      withCredentials: true
-    }).subscribe({
+    this.authService.login(email, password).subscribe({
       next: (response: any) => {
-        console.log('Login successful', response);
-        // Navigate to home page after successful login
+        console.log('Login successful, full response:', JSON.stringify(response, null, 2));
+        // Check if we have the user data
+        if (response && response.user) {
+          console.log('User data found:', response.user);
+          // Store the user data from the response
+          this.authService.setUserData(response.user);
+        } else {
+          console.log('No user data in response:', response);
+        }
         this.router.navigate(['/auth/home']);
       },
       error: (error) => {
