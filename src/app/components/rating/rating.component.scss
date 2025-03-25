@@ -1,0 +1,12 @@
+.rating {
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.fa-star {
+    color: gainsboro; /* Default gray for unselected stars */
+}
+
+.filled {
+    color: gold; /* Gold for selected stars */
+}
