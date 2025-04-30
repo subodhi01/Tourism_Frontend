@@ -3,8 +3,6 @@ import { TourPackageService, TourPackage } from '../../services/tour-package.ser
 import { CommonModule } from '@angular/common';
 
 
-
-
 @Component({
   standalone: true,
   imports: [CommonModule], 
