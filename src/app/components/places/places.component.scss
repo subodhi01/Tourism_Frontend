@@ -1,3 +1,5 @@
+/* New css code for places */
+@use 'sass:color';
 /* Variables */
 $primary-color: #1e88e5;
 $secondary-color: #64b5f6;
@@ -214,7 +216,7 @@ $transition: all 0.3s ease;
           color: $light-color;
 
           &:hover {
-            background: darken($primary-color, 10%);
+            background: color.adjust($primary-color, $lightness: -10%);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba($primary-color, 0.3);
           }
@@ -404,5 +406,32 @@ $transition: all 0.3s ease;
 .row {
   gap: 30px; /* Adjust the value to control the spacing between the cards */
   margin-top: 50px;
+}
+
+.location-filter {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+  }
 }
 
