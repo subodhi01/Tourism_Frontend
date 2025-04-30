@@ -1,10 +1,41 @@
 <footer class="footer">
   <div class="footer-content">
-    <p>© 2025 Galle Tourism. All Rights Reserved.</p>
-    <div class="social-links">
-      <a href="https://facebook.com" target="_blank">Facebook</a> |
-      <a href="https://instagram.com" target="_blank">Instagram</a> |
-      <a href="https://twitter.com" target="_blank">Twitter</a>
+    <div class="footer-brand">
+      <a routerLink="/">
+        <i class="fas fa-compass"></i>
+        <span>Galle Explorer</span>
+      </a>
+      <p>Your journey begins here</p>
+    </div>
+
+    <div class="footer-links">
+      <div class="link-group">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a routerLink="/about">About Us</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+          <li><a routerLink="/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="link-group">
+        <h4>Connect With Us</h4>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <p>&copy; {{currentYear}} Galle Explorer. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
     </div>
   </div>
 </footer>

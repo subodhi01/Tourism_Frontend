@@ -1,44 +1,68 @@
+<<<<<<< HEAD
 <div class="container mt-5">
   <div class="row">
     <!-- Place Card -->
     <div class="col-md-4 mb-4 d-flex" *ngFor="let place of places">
       <div class="card h-100 shadow-sm d-flex flex-column border">
         <!-- Image Slideshow -->
+=======
+<!-- Hero Section -->
+<section class="places-hero">
+  <div class="hero-content">
+    <h1>Discover Amazing Places</h1>
+    <p>Explore the hidden gems of Galle</p>
+  </div>
+</section>
+
+<!-- Places Grid -->
+<div class="container mt-5">
+  <div class="row">
+    <!-- Place Card -->
+    <div class="col-md-4 mb-4" *ngFor="let place of places">
+      <div class="place-card">
+        <!-- Image Container -->
+>>>>>>> aloka
         <div class="image-container">
           <div class="image-wrapper">
-            <!-- Use ngFor and ngIf correctly -->
-            <img *ngFor="let image of place.images; let i = index"
-                 [src]="image" class="d-block w-100 card-img-top"
-                 alt="{{place.name}}" [ngClass]="{'active': i === 0}">
+            <img [src]="place.images[0]" [alt]="place.name">
+            <div class="image-overlay">
+              <div class="rating">
+                <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"
+                   [ngClass]="{'checked': star <= place.rating}"></i>
+                <span>{{place.rating}}/5</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Card Body -->
-        <div class="card-body flex-grow-1">
-          <h5 class="card-title">{{place.name}}</h5>
-          <p class="card-text">{{place.description}}</p>
-          <p class="card-text"><small class="text-muted">{{place.location}}</small></p>
+        <!-- Content -->
+        <div class="card-content">
+          <h3 class="place-name">{{place.name}}</h3>
+          <p class="location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{place.location}}
+          </p>
+          <p class="description">{{place.description}}</p>
 
-          <!-- Rating -->
-          <div class="rating mb-3">
-            <span *ngFor="let star of [1,2,3,4,5]"
-                  [ngClass]="{'fa fa-star': true, 'checked': star <= place.rating}"></span>
-            <span class="ms-2">{{place.rating}}/5</span>
+          <!-- Availability -->
+          <div class="availability">
+            <h4>Available Dates</h4>
+            <div class="date-chips">
+              <span *ngFor="let date of place.availability">{{date}}</span>
+            </div>
           </div>
 
-          <!-- Availability Calendar -->
-          <div class="availability mb-3">
-            <strong>Available Dates:</strong>
-            <ul class="list-unstyled">
-              <li *ngFor="let date of place.availability">{{date}}</li>
-            </ul>
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button class="btn-book" [routerLink]="['/request-booking']">
+              <i class="fas fa-calendar-check"></i>
+              Book Now
+            </button>
+            <button class="btn-explore">
+              <i class="fas fa-compass"></i>
+              Explore
+            </button>
           </div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="card-footer bg-transparent border-top-0 text-center">
-          <button class="btn btn-dark-blue me-2">Request Booking</button>
-          <button class="btn btn-outline-dark-blue">Explore More</button>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="slideshow-container">
   <!-- Slide 1 -->
   <div class="slide fade">
@@ -17,3 +18,173 @@
     <div class="text-overlay">Beautiful South</div>
   </div>
 </div>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover Galle - Sri Lanka</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Discover the Magic of Galle</h1>
+      <p class="hero-subtitle">Where History Meets Paradise</p>
+      <div class="hero-buttons">
+        <button class="btn-primary">Explore Now</button>
+        <button class="btn-secondary">Watch Video</button>
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+  </section>
+
+  <!-- Featured Destinations -->
+  <section class="destinations">
+    <div class="section-header">
+      <h2>Popular Destinations</h2>
+      <p>Explore the most beautiful places in Galle</p>
+    </div>
+    <div class="destination-grid">
+      <div class="destination-card" *ngFor="let destination of popularDestinations">
+        <div class="card-image">
+          <img [src]="destination.image" [alt]="destination.name">
+          <div class="card-overlay">
+            <h3>{{destination.name}}</h3>
+            <p>{{destination.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience">
+    <div class="experience-content">
+      <h2>Your Perfect Galle Experience</h2>
+      <div class="experience-grid">
+        <div class="experience-item">
+          <i class="fas fa-map-marked-alt"></i>
+          <h3>Guided Tours</h3>
+          <p>Expert local guides to show you the hidden gems</p>
+        </div>
+        <div class="experience-item">
+          <i class="fas fa-hotel"></i>
+          <h3>Luxury Stays</h3>
+          <p>Handpicked accommodations for your comfort</p>
+        </div>
+        <div class="experience-item">
+          <i class="fas fa-utensils"></i>
+          <h3>Local Cuisine</h3>
+          <p>Authentic Sri Lankan flavors and experiences</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-header">
+      <h2>What Our Travelers Say</h2>
+      <p>Real experiences from real people</p>
+    </div>
+    <div class="testimonial-slider">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-content">
+          <div class="rating">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+          <p class="testimonial-text">{{testimonial.text}}</p>
+          <div class="testimonial-author">
+            <img [src]="testimonial.authorImage" [alt]="testimonial.authorName">
+            <div class="author-info">
+              <h4>{{testimonial.authorName}}</h4>
+              <p>{{testimonial.authorLocation}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="newsletter-content">
+      <div class="newsletter-header">
+        <i class="fas fa-envelope-open-text"></i>
+        <h2>Stay Updated</h2>
+      </div>
+      <p>Subscribe to our newsletter for the latest updates and exclusive offers</p>
+      <form class="newsletter-form" (ngSubmit)="onSubmitNewsletter($event)">
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Enter your email" required>
+        </div>
+        <button type="submit" class="btn-primary">
+          <span>Subscribe</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <div class="contact-content">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Have questions about your Galle adventure? We're here to help!</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h3>Location</h3>
+              <p>Galle, Sri Lanka</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h3>Phone</h3>
+              <p>+94 91 222 2222</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h3>Email</h3>
+              <p>info&#64;discovergalle.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Send us a Message</h3>
+        <form>
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sia Section -->
+  
+
+  <script src="scripts.js"></script>
+</body>
+</html>
+>>>>>>> aloka
