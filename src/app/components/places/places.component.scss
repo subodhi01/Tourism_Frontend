@@ -10,7 +10,7 @@ $transition: all 0.3s ease;
 /* Hero Section */
 .places-hero {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-              url('../../../assets/images/image4.jpg') center/cover no-repeat;
+              url('/assets/images/image1.jpg') center/cover no-repeat;
   height: 300px;
   display: flex;
   align-items: center;
@@ -94,12 +94,12 @@ $transition: all 0.3s ease;
           padding: 0.4rem 0.8rem;
           border-radius: 20px;
           backdrop-filter: blur(5px);
-          
+
           i {
             color: #ffd700;
             font-size: 1.1rem;
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-            
+
             &.checked {
               color: #ffd700;
             }
@@ -256,14 +256,14 @@ $transition: all 0.3s ease;
     .image-container {
       height: 200px;
     }
-    
+
     .card-content {
       padding: 1.2rem;
-      
+
       .place-name {
         font-size: 1.3rem;
       }
-      
+
       .location, .description {
         font-size: 0.9rem;
       }
@@ -287,7 +287,7 @@ $transition: all 0.3s ease;
 
   .action-buttons {
     flex-direction: row !important;
-    
+
     button {
       padding: 0.6rem;
       font-size: 0.9rem;

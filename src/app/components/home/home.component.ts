@@ -36,12 +36,12 @@ export class HomeComponent implements OnInit {
     {
       name: 'Unawatuna Beach',
       description: 'Pristine beach with crystal clear waters',
-      image: '../../../assets/images/image5.jpg'
+      image: '../../../assets/images/image2.jpg'
     },
     {
       name: 'Jungle Beach',
       description: 'Secluded beach surrounded by lush greenery',
-      image: '../../../assets/images/image4.jpg'
+      image: '../../../assets/images/image2.jpg'
     }
   ];
 
