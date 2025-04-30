@@ -1,3 +1,5 @@
+/* New css code for places */
+@use 'sass:color';
 /* Variables */
 $primary-color: #1e88e5;
 $secondary-color: #64b5f6;
@@ -214,7 +216,7 @@ $transition: all 0.3s ease;
           color: $light-color;
 
           &:hover {
-            background: darken($primary-color, 10%);
+            background: color.adjust($primary-color, $lightness: -10%);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba($primary-color, 0.3);
           }
@@ -408,7 +410,7 @@ $transition: all 0.3s ease;
 
 .location-filter {
   margin-bottom: 20px;
-  
+
   label {
     display: block;
     margin-bottom: 8px;

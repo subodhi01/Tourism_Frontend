@@ -10,6 +10,8 @@ export class PlacesService {
 
   constructor(private http: HttpClient) {}
 
+  //http method
+
   getAllPlaces(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
