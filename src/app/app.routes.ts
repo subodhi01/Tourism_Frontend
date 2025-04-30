@@ -1,4 +1,4 @@
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/homenew/home.component';
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'auth/register', component: RegisterComponent },
   { path: 'tour-packages/tour-packages', component: TourPackagesComponent },
 
-  
+
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: 'auth/login' } // Wildcard route
 ];
