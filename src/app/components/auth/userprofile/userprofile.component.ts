@@ -30,6 +30,9 @@ export class UserProfileComponent implements OnInit {
   loading = true;
   error: string | null = null;
   isBrowser: boolean;
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
 
   // User data from backend
   user: User | null = null;
