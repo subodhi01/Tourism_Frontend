@@ -9,33 +9,64 @@ import { isPlatformBrowser } from '@angular/common';
 export class HomeComponent implements AfterViewInit {
   slideIndex = 0;
   isBrowser: boolean;
+  private slideInterval: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId); // Ensures it's only executed in the browser
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngAfterViewInit() {
     if (this.isBrowser) {
-      setTimeout(() => this.showSlides(), 1000); // Delay to allow the page to load
+      // Use a slightly longer delay to ensure DOM is fully loaded
+      setTimeout(() => this.showSlides(), 1500);
     }
   }
 
   showSlides() {
     if (!this.isBrowser) return;
 
-    let slides = document.getElementsByClassName("slide") as HTMLCollectionOf<HTMLElement>;
+    try {
+      const slides = document.getElementsByClassName("slide") as HTMLCollectionOf<HTMLElement>;
+      
+      if (!slides || slides.length === 0) {
+        console.warn('No slides found in the DOM');
+        return;
+      }
 
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none"; // Hide all slides initially
+      // Hide all slides
+      for (let i = 0; i < slides.length; i++) {
+        if (slides[i]) {
+          slides[i].style.display = "none";
+        }
+      }
+
+      this.slideIndex++;
+      if (this.slideIndex > slides.length) {
+        this.slideIndex = 1;
+      }
+
+      // Show current slide
+      const currentSlide = slides[this.slideIndex - 1];
+      if (currentSlide) {
+        currentSlide.style.display = "block";
+      }
+
+      // Clear any existing interval before setting a new one
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval);
+      }
+
+      // Set new interval
+      this.slideInterval = setInterval(() => this.showSlides(), 3000);
+    } catch (error) {
+      console.error('Error in showSlides:', error);
     }
+  }
 
-    this.slideIndex++;
-    if (this.slideIndex > slides.length) {
-      this.slideIndex = 1; // Reset the slide index to loop back
+  ngOnDestroy() {
+    // Clear the interval when component is destroyed
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval);
     }
-
-    slides[this.slideIndex - 1].style.display = "block"; // Show the current slide
-
-    setTimeout(() => this.showSlides(), 3000); // Change image every 3 seconds
   }
 }

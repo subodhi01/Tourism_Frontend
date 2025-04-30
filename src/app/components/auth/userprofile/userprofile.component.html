@@ -3,19 +3,31 @@
     <h2>User Profile</h2>
     <p class="profile-subtitle">Manage your account details</p>
 
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      Loading profile data...
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
     <!-- Profile Information -->
-    <div class="profile-info">
+    <div class="profile-info" *ngIf="user && !loading">
       <div class="profile-picture">
         <img [src]="profilePicture" alt="Profile Picture" *ngIf="profilePicture" />
-        <div class="profile-placeholder" *ngIf="!profilePicture">No Image</div>
+        <div class="profile-placeholder" *ngIf="!profilePicture">
+          {{ user.fullName.charAt(0) }}
+        </div>
         <input type="file" (change)="onFileChange($event)" accept="image/*" id="profilePicInput" hidden />
         <label for="profilePicInput" class="profile-upload-btn">Upload Picture</label>
       </div>
 
       <div class="profile-user-details">
         <div class="profile-detail-group">
-          <label>Username:</label>
-          <span>{{ user.username }}</span>
+          <label>Full Name:</label>
+          <span>{{ user.fullName }}</span>
         </div>
         <div class="profile-detail-group">
           <label>Email:</label>
@@ -25,11 +37,19 @@
           <label>Telephone:</label>
           <span>{{ user.telephone }}</span>
         </div>
+        <div class="profile-detail-group">
+          <label>Role:</label>
+          <span>{{ user.role }}</span>
+        </div>
+        <div class="profile-detail-group">
+          <label>Email Verified:</label>
+          <span>{{ user.isEmailVerified ? 'Yes' : 'No' }}</span>
+        </div>
       </div>
     </div>
 
     <!-- Edit/Delete Buttons -->
-    <div class="profile-action-buttons">
+    <div class="profile-action-buttons" *ngIf="user && !loading">
       <button (click)="toggleEditMode()" class="profile-edit-btn">
         {{ editMode ? 'Save' : 'Edit Profile' }}
       </button>
@@ -37,12 +57,12 @@
     </div>
 
     <!-- Edit Form (Visible when editMode is true) -->
-    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" *ngIf="editMode">
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" *ngIf="editMode && user">
       <div class="profile-form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" formControlName="username" placeholder="Enter your username" />
-        <div *ngIf="profileForm.get('username')?.touched && profileForm.get('username')?.invalid" class="profile-error">
-          Username is required
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name" />
+        <div *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.invalid" class="profile-error">
+          Full name is required
         </div>
       </div>
 
@@ -65,44 +85,8 @@
       </div>
     </form>
 
-    <!-- Budget and Preferences Section -->
-    <div class="profile-budget-preferences-section">
-      <h3>Budget & Preferences</h3>
-      <div class="profile-budget-display" *ngIf="!editMode">
-        <div class="profile-detail-group">
-          <label>Budget:</label>
-          <span>{{ user.budget ? '$' + user.budget : 'Not Set' }}</span>
-        </div>
-        <div class="profile-detail-group">
-          <label>Preferences:</label>
-          <span>{{ user.preferences.length ? user.preferences.join(', ') : 'None Selected' }}</span>
-        </div>
-      </div>
-
-      <!-- Edit Budget and Preferences (Visible in editMode) -->
-      <form [formGroup]="profileForm" *ngIf="editMode">
-        <div class="profile-form-group">
-          <label for="budget">Budget (in USD)</label>
-          <input type="number" id="budget" formControlName="budget" placeholder="Enter your budget" min="0" />
-          <div *ngIf="profileForm.get('budget')?.touched && profileForm.get('budget')?.invalid" class="profile-error">
-            Budget must be a positive number
-          </div>
-        </div>
-
-        <div class="profile-preferences-group">
-          <label>Preferences</label>
-          <div class="profile-checkbox-group">
-            <label *ngFor="let pref of availablePreferences">
-              <input type="checkbox" [formControlName]="pref" />
-              <span>{{ pref }}</span>
-            </label>
-          </div>
-        </div>
-      </form>
-    </div>
-
     <!-- Reset Password Section -->
-    <div class="profile-reset-password-section">
+    <div class="profile-reset-password-section" *ngIf="user && !loading">
       <h3>Reset Password</h3>
       <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
         <div class="profile-form-group">

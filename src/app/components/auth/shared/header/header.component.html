@@ -21,7 +21,7 @@
             <span class="arrow" [class.open]="isDropdownOpen">▼</span>
           </div>
           <div class="dropdown-menu" [class.show]="isDropdownOpen">
-            <a routerLink="/profile" class="dropdown-item">
+            <a routerLink="/auth/userprofile" class="dropdown-item">
               <i class="fas fa-user"></i> My Profile
             </a>
             <button class="dropdown-item" (click)="logout()">
