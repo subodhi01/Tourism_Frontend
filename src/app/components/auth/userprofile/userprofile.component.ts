@@ -111,25 +111,97 @@ export class UserProfileComponent implements OnInit {
 
   // Toggle Edit Mode
   toggleEditMode() {
-    if (this.editMode) {
-      this.saveProfile();
-    }
     this.editMode = !this.editMode;
+    if (!this.editMode) {
+      // Reset form to current user data when exiting edit mode
+      this.profileForm.patchValue({
+        fullName: this.user?.fullName,
+        email: this.user?.email,
+        telephone: this.user?.telephone
+      });
+    }
+  }
+
+  // Cancel Edit Mode
+  cancelEdit() {
+    this.editMode = false;
+    // Reset form to current user data
+    this.profileForm.patchValue({
+      fullName: this.user?.fullName,
+      email: this.user?.email,
+      telephone: this.user?.telephone
+    });
   }
 
   // Save Profile Changes
   async saveProfile() {
+    console.log('Starting profile update...');
     if (this.profileForm.valid) {
       try {
         const formValue = this.profileForm.value;
-        // Add API call to update profile here
-        console.log('Profile updated:', formValue);
-        this.editMode = false;
-      } catch (error) {
-        console.error('Error updating profile:', error);
+        const currentUser = this.authService.getUserData();
+        
+        console.log('Current form values:', formValue);
+        console.log('Current user data:', currentUser);
+        
+        if (!currentUser || !currentUser.email) {
+          console.error('No user data available');
+          this.error = 'No user data available. Please log in again.';
+          return;
+        }
+
+        const updateData = {
+          email: currentUser.email,
+          fullName: formValue.fullName,
+          telephoneNumber: formValue.telephone
+        };
+
+        console.log('Sending update request with data:', updateData);
+
+        const response = await this.http.put<any>(
+          'https://localhost:44399/api/auth/profile',
+          updateData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            withCredentials: true
+          }
+        ).toPromise();
+
+        console.log('Raw API response:', response);
+
+        if (response && (response.Message === 'Profile updated successfully' || response.message === 'Profile updated successfully')) {
+          console.log('Profile update successful');
+          // Update local user data
+          if (this.user) {
+            this.user.fullName = formValue.fullName;
+            this.user.telephone = formValue.telephone;
+          }
+          this.editMode = false;
+          this.error = null;
+          // Show success message
+          alert('Profile updated successfully');
+          // Force a refresh of the profile data
+          await this.fetchUserProfile();
+        } else {
+          console.error('Unexpected response format:', response);
+          throw new Error(response?.Message || response?.message || 'Failed to update profile');
+        }
+      } catch (error: any) {
+        console.error('Detailed error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error response:', error.error);
+        this.error = error.error?.Message || error.message || 'Failed to update profile. Please try again.';
+        // Keep the form in edit mode if there's an error
+        this.editMode = true;
       }
     } else {
+      console.log('Form validation failed:', this.profileForm.errors);
       this.profileForm.markAllAsTouched();
+      this.error = 'Please fill in all required fields correctly.';
     }
   }
 
