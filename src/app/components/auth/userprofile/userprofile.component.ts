@@ -207,14 +207,50 @@ export class UserProfileComponent implements OnInit {
 
   // Delete Profile
   async deleteProfile() {
-    if (confirm('Are you sure you want to delete your profile?')) {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try {
-        // Add API call to delete profile here
-        console.log('Profile deleted');
-        localStorage.removeItem('userEmail');
-        this.router.navigate(['/login']);
-      } catch (error) {
-        console.error('Error deleting profile:', error);
+        const currentUser = this.authService.getUserData();
+        if (!currentUser || !currentUser.email) {
+          this.error = 'No user data available. Please log in again.';
+          return;
+        }
+
+        const deleteData = {
+          email: currentUser.email,
+          password: prompt('Please enter your password to confirm account deletion:')
+        };
+
+        if (!deleteData.password) {
+          return;
+        }
+
+        const response = await this.http.request('DELETE', 'https://localhost:44399/api/auth/account', {
+          body: deleteData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          withCredentials: true
+        }).toPromise();
+
+        if (response) {
+          // Clear local storage and redirect to login
+          localStorage.removeItem('userEmail');
+          this.authService.logout();
+          this.router.navigate(['/auth/login']);
+        } else {
+          throw new Error('Failed to delete account');
+        }
+      } catch (error: any) {
+        console.error('Error deleting account:', error);
+        if (error.status === 200) {
+          // If the status is 200, the deletion was successful
+          localStorage.removeItem('userEmail');
+          this.authService.logout();
+          this.router.navigate(['/auth/login']);
+        } else {
+          this.error = error.error?.Message || error.message || 'Failed to delete account. Please try again.';
+        }
       }
     }
   }

@@ -175,11 +175,16 @@
           </h3>
         </div>
         <div class="profile-danger-content">
-          <p>Once you delete your account, there is no going back. Please be certain.</p>
-          <button class="profile-delete-btn" (click)="deleteProfile()">
-            <i class="fas fa-trash-alt"></i>
-            Delete Account
-          </button>
+          <div class="danger-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>
+          </div>
+          <div class="danger-actions">
+            <button class="profile-delete-btn" (click)="deleteProfile()">
+              <i class="fas fa-trash-alt"></i>
+              Delete My Account
+            </button>
+          </div>
         </div>
       </div>
     </div>
