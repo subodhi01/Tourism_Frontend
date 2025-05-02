@@ -9,7 +9,9 @@ import { FooterComponent } from './components/auth/shared/footer/footer.componen
   imports: [RouterModule, RouterOutlet, HeaderComponent, FooterComponent], // Import components properly
   template: `
     <app-header></app-header>
-    <router-outlet></router-outlet>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
     <app-footer></app-footer>
   `,
   styleUrls: ['./app.component.scss']

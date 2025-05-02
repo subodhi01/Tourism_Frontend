@@ -59,6 +59,6 @@ export const routes: Routes = [
   { path: 'reviews', component: ReviewScreenComponent },
   { path: 'tour-packages', component: TourPackagesComponent },
   { path: 'contact', component: ContactUsComponent },
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth/login' }
+  { path: '', redirectTo: 'auth/home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth/home' }
 ];
