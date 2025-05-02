@@ -2,20 +2,24 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import { OtpVerificationComponent } from '../otp-verification/otp-verification.component';
+=======
+>>>>>>> origin/dev
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, OtpVerificationComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], // Import RouterModule for routerLink
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+<<<<<<< HEAD
   error: string = '';
   loading: boolean = false;
   showOTPVerification: boolean = false;
@@ -78,6 +82,21 @@ export class RegisterComponent {
     } else {
       console.log('Form is invalid:', this.registerForm.errors);
       this.registerForm.markAllAsTouched();
+=======
+
+  constructor(private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  register() {
+    if (this.registerForm.invalid) {
+      return;
+>>>>>>> origin/dev
     }
+    console.log('Register form submitted', this.registerForm.value);
   }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,11 +11,17 @@ export interface User {
   telephone: string;
   profilePhoto?: string;
 }
+=======
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../environment';
+>>>>>>> origin/dev
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+<<<<<<< HEAD
   private apiUrl = 'https://localhost:44399/api';
   private userSubject = new BehaviorSubject<User | null>(null);
   currentUser$: Observable<User | null> = this.userSubject.asObservable();
@@ -99,5 +106,17 @@ export class AuthService {
       'Accept': 'application/json'
     });
     return this.http.post(`${this.apiUrl}/auth/reset-password`, { email, otp, newPassword }, { headers, withCredentials: true });
+=======
+  private apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
+
+  login(credentials: { email: string, password: string }) {
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
+  }
+
+  register(user: { fullName: string, email: string, password: string }) {
+    return this.http.post(`${this.apiUrl}/auth/register`, user);
+>>>>>>> origin/dev
   }
 }

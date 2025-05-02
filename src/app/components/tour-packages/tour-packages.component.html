@@ -1,0 +1,10 @@
+<div class="tour-packages-container">
+  <div class="package-card" *ngFor="let package of tourPackages">
+    <h3 class="package-header">{{ package.packageName }}</h3>
+    <p class="package-location"><strong>Place:</strong> {{ package.place }}</p>
+    <p class="package-description">{{ package.description }}</p>
+    <p class="package-price"><strong>Price:</strong> ${{ package.price }}</p>
+    <p class="package-duration"><strong>Duration:</strong> {{ package.durationDays }} days</p>
+  </div>
+</div>
+

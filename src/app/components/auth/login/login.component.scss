@@ -1,7 +1,7 @@
 /* General Styles */
-.auth-body {
+body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sans-serif font stack */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@
   color: #333;
 }
 
-.auth-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,174 +19,137 @@
 }
 
 /* Login Box */
-.auth-login-box {
-  background: rgba(255, 255, 255, 0.95);
+.login-box {
+  background: #ffffff;
   padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
   text-align: center;
-  animation: auth-slideIn 0.6s ease-in-out;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.auth-login-box h2 {
+.login-box h2 {
   margin-bottom: 1rem;
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #2a5298;
-  font-weight: 700;
-  letter-spacing: -0.5px;
 }
 
-.auth-subtitle {
+.login-box .subtitle {
   margin-bottom: 2rem;
   color: #666;
-  font-size: 0.95rem;
-  font-weight: 400;
+  font-size: 0.9rem;
 }
 
 /* Form Styles */
-.auth-form-group {
+.form-group {
   margin-bottom: 1.5rem;
   text-align: left;
 }
 
-.auth-form-group label {
+.form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
   color: #444;
-  font-size: 0.9rem;
 }
 
-.auth-form-group input {
+.form-group input {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background: rgba(255, 255, 255, 0.9);
 }
 
-.auth-form-group input:focus {
+.form-group input:focus {
   border-color: #2a5298;
-  box-shadow: 0 0 12px rgba(42, 82, 152, 0.4);
+  box-shadow: 0 0 8px rgba(42, 82, 152, 0.3);
   outline: none;
 }
 
 /* Form Options */
-.auth-form-options {
+.form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.auth-remember-me {
+.remember-me {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
   color: #666;
 }
 
-.auth-remember-me input {
+.remember-me input {
   margin-right: 0.5rem;
-  accent-color: #2a5298;
 }
 
-.auth-forgot-password {
+.forgot-password {
   color: #2a5298;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition: color 0.3s ease;
 }
 
-.auth-forgot-password:hover {
+.forgot-password:hover {
   color: #1e3c72;
-  transform: translateX(5px);
 }
 
 /* Button Styles */
-.auth-button {
+button {
   width: 100%;
   padding: 0.75rem;
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  background: #2a5298;
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.auth-button:disabled {
-  background: linear-gradient(135deg, #a0a0a0 0%, #808080 100%);
+button:disabled {
+  background: #a0a0a0;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-.auth-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(42, 82, 152, 0.4);
+button:hover:not(:disabled) {
+  background: #1e3c72;
+  transform: translateY(-2px);
 }
 
 /* Register Link */
-.auth-register-link {
+.register-link {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   color: #666;
 }
 
-.auth-register-link a {
+.register-link a {
   color: #2a5298;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition: color 0.3s ease;
 }
 
-.auth-register-link a:hover {
+.register-link a:hover {
   color: #1e3c72;
-  transform: translateX(5px);
 }
 
 /* Animations */
-@keyframes auth-slideIn {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Error Message Styles */
-.auth-error-message {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #ff4d4d;
-  font-weight: 500;
-  animation: auth-shake 0.4s ease-in-out;
-}
-
-@keyframes auth-shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
   }
 }
