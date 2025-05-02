@@ -38,6 +38,7 @@ import { UserProfileComponent } from './components/auth/userprofile/userprofile.
 import { RequestBookingComponent } from './request-booking/request-booking.component';
 import { ReviewScreenComponent } from './pages/review-screen/review-screen.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
+import { TravelDestinationComponent } from './components/travel-destination/travel-destination.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -49,6 +50,7 @@ export const routes: Routes = [
   { path: 'auth/userprofile', component: UserProfileComponent },
   { path: 'reviews/:type/:itemId', component: ReviewsComponent },
   { path: 'reviews', component: ReviewScreenComponent },
+  { path: 'destinations', component: TravelDestinationComponent },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   //{ path: '**', redirectTo: 'auth/login' }
 ];
