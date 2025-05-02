@@ -62,6 +62,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/tour-packages']);
   }
 
+  navigateToContact() {
+    this.router.navigate(['/contact']);
+  }
+
   logout() {
     console.log('Logging out from header');
     this.authService.logout();

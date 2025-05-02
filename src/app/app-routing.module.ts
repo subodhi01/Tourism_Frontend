@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { ForgetPasswordComponent } from './components/auth/forget-password/forget-password.component';
 import { VerifyResetOtpComponent } from './components/auth/verify-reset-otp/verify-reset-otp.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'verify-reset-otp', component: VerifyResetOtpComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'contact', component: ContactUsComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

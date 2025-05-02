@@ -42,6 +42,7 @@ import { ReviewScreenComponent } from './pages/review-screen/review-screen.compo
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { HomeComponent } from './components/home/home.component';
 import { TourPackagesComponent } from './tour-packages/tour-packages.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -57,6 +58,7 @@ export const routes: Routes = [
   { path: 'reviews/:type/:itemId', component: ReviewsComponent },
   { path: 'reviews', component: ReviewScreenComponent },
   { path: 'tour-packages', component: TourPackagesComponent },
+  { path: 'contact', component: ContactUsComponent },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth/login' }
 ];

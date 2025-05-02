@@ -1,0 +1,41 @@
+<div class="contact-container">
+  <div class="contact-form-container">
+    <h1>Contact Us</h1>
+    <p class="subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter your name">
+        <mat-error *ngIf="contactForm.get('name')?.hasError('required')">Name is required</mat-error>
+        <mat-error *ngIf="contactForm.get('name')?.hasError('minlength')">Name must be at least 2 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email" type="email">
+        <mat-error *ngIf="contactForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="contactForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Subject</mat-label>
+        <input matInput formControlName="subject" placeholder="Enter message subject">
+        <mat-error *ngIf="contactForm.get('subject')?.hasError('required')">Subject is required</mat-error>
+        <mat-error *ngIf="contactForm.get('subject')?.hasError('minlength')">Subject must be at least 5 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+        <textarea matInput formControlName="message" placeholder="Enter your message" rows="5"></textarea>
+        <mat-error *ngIf="contactForm.get('message')?.hasError('required')">Message is required</mat-error>
+        <mat-error *ngIf="contactForm.get('message')?.hasError('minlength')">Message must be at least 10 characters</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!contactForm.valid || isSubmitting">
+        <mat-spinner diameter="20" *ngIf="isSubmitting"></mat-spinner>
+        <span *ngIf="!isSubmitting">Send Message</span>
+      </button>
+    </form>
+  </div>
+</div> 
