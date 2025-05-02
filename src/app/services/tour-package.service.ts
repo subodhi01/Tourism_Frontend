@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environment';
+
 export interface TourPackage {
   packageID: number;
   packageName: string;
@@ -11,18 +13,14 @@ export interface TourPackage {
   createdAt: string;
   updatedAt: string;
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class TourPackageService {
-
-
-  private apiUrl = 'https://localhost:44399/api/TourPackage'; // Replace with your backend URL
-
+  private apiUrl = `${environment.apiUrl}/TourPackage`;
 
   constructor(private http: HttpClient) { }
-
-
 
   getTourPackages(): Observable<TourPackage[]> {
     return this.http.get<TourPackage[]>(this.apiUrl);
