@@ -1,78 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ContactService } from '../../services/contact.service';
+import { ContactFormComponent } from '../contact-form/contact-form.component';
 
 @Component({
   selector: 'app-contact-us',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressSpinnerModule
-  ],
-  templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.scss']
-})
-export class ContactUsComponent implements OnInit {
-  contactForm: FormGroup;
-  isSubmitting = false;
-
-  constructor(
-    private fb: FormBuilder,
-    private contactService: ContactService,
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {
-    this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required, Validators.minLength(5)]],
-      message: ['', [Validators.required, Validators.minLength(10)]]
-    });
-  }
-
-  ngOnInit(): void {}
-
-  onSubmit(): void {
-    if (this.contactForm.valid) {
-      this.isSubmitting = true;
-      const contactData = {
-        ...this.contactForm.value,
-        createdAt: new Date(),
-        isRead: false
-      };
-
-      this.contactService.createContact(contactData).subscribe({
-        next: () => {
-          this.snackBar.open('Message sent successfully!', 'Close', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
-          this.contactForm.reset();
-          this.isSubmitting = false;
-        },
-        error: (error) => {
-          console.error('Error sending message:', error);
-          this.snackBar.open('Error sending message. Please try again.', 'Close', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
-          this.isSubmitting = false;
-        }
-      });
+  imports: [CommonModule, ContactFormComponent],
+  template: `
+    <div class="contact-page">
+      <div class="contact-header">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Please fill out the form below and we'll get back to you as soon as possible.</p>
+      </div>
+      <app-contact-form></app-contact-form>
+    </div>
+  `,
+  styles: [`
+    .contact-page {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-  }
-} 
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  `]
+})
+export class ContactUsComponent {} 
