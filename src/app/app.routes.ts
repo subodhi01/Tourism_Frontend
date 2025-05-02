@@ -11,9 +11,9 @@ import { UserProfileComponent } from './components/auth/userprofile/userprofile.
 import { HomeComponent } from './components/homenew/home.component'; // use homenew version
 import { PlacesComponent } from './components/places/places.component';
 import { TourPackagesComponent } from './components/tour-packages/tour-packages.component';
-import { RequestBookingComponent } from './request-booking/request-booking.component';
-import { ReviewScreenComponent } from './pages/review-screen/review-screen.component';
-import { ReviewsComponent } from './components/reviews/reviews.component';
+//import { RequestBookingComponent } from './request-booking/request-booking.component';
+//import { ReviewScreenComponent } from './pages/review-screen/review-screen.component';
+//import { ReviewsComponent } from './components/reviews/reviews.component';
 
 // Optional: Uncomment and use if route protection is needed
 // import { authGuard } from './auth.guard';
@@ -28,9 +28,9 @@ export const routes: Routes = [
   { path: 'auth/home', component: HomeComponent },
   { path: 'auth/places', component: PlacesComponent },
   { path: 'tour-packages/tour-packages', component: TourPackagesComponent },
-  { path: 'request-booking', component: RequestBookingComponent },
-  { path: 'reviews/:type/:itemId', component: ReviewsComponent },
-  { path: 'reviews', component: ReviewScreenComponent },
+  //{ path: 'request-booking', component: RequestBookingComponent },
+ // { path: 'reviews/:type/:itemId', component: ReviewsComponent },
+  //{ path: 'reviews', component: ReviewScreenComponent },
   
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: 'auth/login' } // Wildcard route
