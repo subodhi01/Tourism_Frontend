@@ -24,7 +24,7 @@ interface Testimonial {
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
-<<<<<<< HEAD
+
 export class HomeComponent implements AfterViewInit {
   slideIndex = 0;
   isBrowser: boolean;
@@ -39,7 +39,7 @@ export class HomeComponent implements AfterViewInit {
       // Use a slightly longer delay to ensure DOM is fully loaded
       setTimeout(() => this.showSlides(), 1500);
     }
-=======
+
 export class HomeComponent implements OnInit {
   newsletterForm: FormGroup;
 
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize any required functionality
->>>>>>> origin/dev
+
   }
 
   // Navigation methods
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/destinations']);
   }
 
-<<<<<<< HEAD
+
     try {
       const slides = document.getElementsByClassName("slide") as HTMLCollectionOf<HTMLElement>;
       
@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit {
     if (this.slideInterval) {
       clearInterval(this.slideInterval);
     }
-=======
+
   onWatchVideo(): void {
     // Implement video modal or navigation
     console.log('Watch video clicked');
@@ -160,6 +160,6 @@ export class HomeComponent implements OnInit {
       console.log('Newsletter subscription submitted for:', email);
       this.newsletterForm.reset();
     }
->>>>>>> origin/dev
+
   }
 }
