@@ -3,9 +3,8 @@
     <div class="logo">Tourism Galle</div>
     <ul>
       <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/hotels">Hotels</a></li>
-      <li><a routerLink="/restaurants">Restaurants</a></li>
-      <li><a routerLink="/activities">Activities</a></li>
+      <li><a (click)="navigateToPlaces()" style="cursor: pointer;">Hotels</a></li>
+      <li><a (click)="navigateToTourPackages()" style="cursor: pointer;">Tour Packages</a></li>
       <li><a routerLink="/contact">Contact Us</a></li>
     </ul>
     <div class="auth-buttons">

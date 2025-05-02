@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TourPackageService, TourPackage } from '../../services/tour-package.service';
+import { TourPackageService, TourPackage } from '../services/tour-package.service';
 import { CommonModule } from '@angular/common';
 
 
