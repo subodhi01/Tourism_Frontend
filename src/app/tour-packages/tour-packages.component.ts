@@ -1,11 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TourPackageService, TourPackage } from '../../services/tour-package.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
+  standalone: true,
+  imports: [CommonModule], 
   selector: 'app-tour-packages',
-  imports: [],
   templateUrl: './tour-packages.component.html',
-  styleUrl: './tour-packages.component.scss'
+  styleUrls: ['./tour-packages.component.scss']
 })
-export class TourPackagesComponent {
+export class TourPackagesComponent implements OnInit {
+  tourPackages: TourPackage[] = [];
 
+  constructor(private tourPackageService: TourPackageService) {}
+
+  ngOnInit(): void {
+    this.tourPackageService.getTourPackages().subscribe(data => {
+      this.tourPackages = data;
+    });
+  }
 }
