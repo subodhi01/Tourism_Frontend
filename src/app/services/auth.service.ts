@@ -89,6 +89,10 @@ export class AuthService {
 
   logout() {
     this.userSubject.next(null);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userEmail');
+    }
   }
 
   forgetPassword(email: string): Observable<any> {
