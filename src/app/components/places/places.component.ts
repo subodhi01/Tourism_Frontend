@@ -39,6 +39,9 @@ export class PlacesComponent implements OnInit, AfterViewInit {
       },
       error: (error) => {
         console.error('Error loading places:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error details:', error.error);
         this.isLoading = false;
       }
     });
