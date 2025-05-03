@@ -3,105 +3,265 @@ $secondary-color: #28a745;
 $bg-color: #f8f9fa;
 $text-color: #333;
 $border-radius: 10px;
+$modal-bg: rgba(0, 0, 0, 0.5);
 
 .tour-packages-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
   padding: 20px;
   background-color: $bg-color;
+  min-height: 100vh;
 
-  .package-card {
-    background: white;
-    border-radius: $border-radius;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    max-width: 300px;
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .package-header {
-      font-size: 22px;
-      font-weight: bold;
+    h2 {
       color: $primary-color;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid rgba($primary-color, 0.1);
+      margin: 0;
     }
+  }
+}
 
-    .package-description {
-      font-size: 14px;
-      color: $text-color;
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
 
-    .package-price {
-      font-size: 20px;
-      font-weight: bold;
-      color: $secondary-color;
-      margin: 15px 0;
-      padding: 10px;
-      background: rgba($secondary-color, 0.1);
-      border-radius: 5px;
-    }
+.package-card {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
-    .package-duration {
-      font-size: 14px;
-      color: darken($text-color, 20%);
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .package-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: $primary-color;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba($primary-color, 0.1);
+  }
+
+  .package-description {
+    font-size: 14px;
+    color: $text-color;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .package-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: $secondary-color;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba($secondary-color, 0.1);
+    border-radius: 5px;
+  }
+
+  .package-duration {
+    font-size: 14px;
+    color: darken($text-color, 20%);
+    margin-bottom: 10px;
+  }
+
+  .package-location {
+    font-size: 16px;
+    font-weight: bold;
+    color: darken($primary-color, 15%);
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba($primary-color, 0.1);
+    border-radius: 5px;
+  }
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.plan-card {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: 15px;
+  }
+
+  .activity-list {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba($text-color, 0.1);
+
+    .activity-item {
       margin-bottom: 10px;
-    }
-
-    .package-location {
-      font-size: 16px;
-      font-weight: bold;
-      color: darken($primary-color, 15%);
-      margin-top: 15px;
       padding: 10px;
-      background: rgba($primary-color, 0.1);
+      background: rgba($primary-color, 0.05);
       border-radius: 5px;
-    }
 
-    .action-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: $primary-color;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 15px;
-      font-size: 14px;
-      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-
-      &:hover {
-        background: darken($primary-color, 10%);
-        transform: translateY(-2px);
+      h4 {
+        color: darken($primary-color, 10%);
+        margin-bottom: 5px;
       }
     }
   }
 }
 
-@media (max-width: 768px) {
-  .tour-packages-container {
-    flex-direction: column;
-    align-items: center;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $modal-bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 
-    .package-card {
-      max-width: 100%;
+  .modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: $border-radius;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    h3 {
+      color: $primary-color;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
       margin-bottom: 20px;
 
-      &:last-child {
-        margin-bottom: 0;
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: $text-color;
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid rgba($text-color, 0.2);
+        border-radius: 5px;
+        font-size: 16px;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+        }
       }
     }
+  }
+}
+
+.category-selection {
+  margin-bottom: 20px;
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+
+    .category-item {
+      label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.generated-activities {
+  margin-top: 20px;
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .activity-card {
+    background: rgba($primary-color, 0.05);
+    padding: 15px;
+    border-radius: 5px;
+
+    h5 {
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+  }
+}
+
+.btn-primary {
+  background: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+.btn-secondary {
+  background: $secondary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: darken($secondary-color, 10%);
+  }
+}
+
+@media (max-width: 768px) {
+  .package-grid, .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
   }
 }

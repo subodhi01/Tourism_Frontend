@@ -1,10 +1,102 @@
 <div class="tour-packages-container">
-  <div class="package-card" *ngFor="let package of tourPackages">
-    <h3 class="package-header">{{ package.packageName }}</h3>
-    <p class="package-location"><strong>Place:</strong> {{ package.place }}</p>
-    <p class="package-description">{{ package.description }}</p>
-    <p class="package-price"><strong>Price:</strong> ${{ package.price }}</p>
-    <p class="package-duration"><strong>Duration:</strong> {{ package.durationDays }} days</p>
+  <!-- Tour Packages Section -->
+  <div class="section-header">
+    <h2>Available Tour Packages</h2>
+    <button class="btn-primary" (click)="openActivityGenerator()">Generate Activities</button>
+  </div>
+
+  <div class="package-grid">
+    <div class="package-card" *ngFor="let package of tourPackages">
+      <h3 class="package-header">{{ package.packageName }}</h3>
+      <p class="package-location"><strong>Place:</strong> {{ package.place }}</p>
+      <p class="package-description">{{ package.description }}</p>
+      <p class="package-price"><strong>Price:</strong> ${{ package.price }}</p>
+      <p class="package-duration"><strong>Duration:</strong> {{ package.durationDays }} days</p>
+      <button class="btn-secondary" (click)="openPlanForm(package.packageID)">Create Plan</button>
+    </div>
+  </div>
+
+  <!-- User Plans Section -->
+  <div class="section-header">
+    <h2>Your Plans</h2>
+  </div>
+
+  <div class="plans-grid" *ngIf="userPlans.length > 0">
+    <div class="plan-card" *ngFor="let plan of userPlans">
+      <h3>{{ plan.planName }}</h3>
+      <p><strong>Package:</strong> {{ getPackageName(plan.packageId) }}</p>
+      <p><strong>Duration:</strong> {{ plan.startDate }} to {{ plan.endDate }}</p>
+      <p><strong>Activities:</strong> {{ plan.activities.length }}</p>
+      <div class="activity-list">
+        <div class="activity-item" *ngFor="let activity of plan.activities">
+          <h4>{{ activity.name }}</h4>
+          <p>{{ activity.description }}</p>
+          <p><strong>Duration:</strong> {{ activity.duration }} hours</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan Creation Form -->
+  <div class="modal" *ngIf="isPlanFormOpen">
+    <div class="modal-content">
+      <h3>Create New Plan</h3>
+      <form (ngSubmit)="addPlan()">
+        <div class="form-group">
+          <label for="planName">Plan Name</label>
+          <input type="text" id="planName" [(ngModel)]="newPlan.planName" name="planName" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" [(ngModel)]="newPlan.description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="date" id="startDate" [(ngModel)]="newPlan.startDate" name="startDate" required>
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input type="date" id="endDate" [(ngModel)]="newPlan.endDate" name="endDate" required>
+        </div>
+        <button type="submit" class="btn-primary">Create Plan</button>
+        <button type="button" class="btn-secondary" (click)="isPlanFormOpen = false">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Activity Generator -->
+  <div class="modal" *ngIf="isActivityGeneratorOpen">
+    <div class="modal-content">
+      <h3>Generate Activities</h3>
+      <div class="category-selection">
+        <h4>Select Categories</h4>
+        <div class="category-grid">
+          <div class="category-item" *ngFor="let category of categories">
+            <label>
+              <input type="checkbox" 
+                     [checked]="selectedCategories.includes(category)"
+                     (change)="toggleCategory(category)">
+              {{ category | titlecase }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" (click)="generateActivities()">Generate</button>
+      <button class="btn-secondary" (click)="isActivityGeneratorOpen = false">Close</button>
+
+      <div class="generated-activities" *ngIf="generatedActivities.length > 0">
+        <h4>Generated Activities</h4>
+        <div class="activity-grid">
+          <div class="activity-card" *ngFor="let activity of generatedActivities">
+            <h5>{{ activity.name }}</h5>
+            <p>{{ activity.description }}</p>
+            <p><strong>Category:</strong> {{ activity.category }}</p>
+            <p><strong>Duration:</strong> {{ activity.duration }} hours</p>
+            <p><strong>Price:</strong> ${{ activity.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
