@@ -1,7 +1,9 @@
 <div class="auth-container">
   <div class="auth-register-box">
-    <h2>Register</h2>
-    <p class="auth-subtitle">Create a new account</p>
+    <div class="auth-header">
+      <h2>Create Account</h2>
+      <p class="auth-subtitle">Join us to explore amazing destinations</p>
+    </div>
 
     <!-- Show OTP Verification component when registration is successful -->
     <app-otp-verification 
@@ -10,44 +12,114 @@
     </app-otp-verification>
 
     <!-- Show registration form when not showing OTP verification -->
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
-      <div>
-        <label for="fullName">Full Name</label>
-        <input id="fullName" formControlName="fullName" type="text" />
-        <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
-          Full Name is required
+    <form [formGroup]="registerForm" (ngSubmit)="register()" *ngIf="!showOTPVerification">
+      <div class="auth-form-group">
+        <label for="fullName">
+          <i class="fas fa-user"></i>
+          Full Name
+        </label>
+        <input 
+          id="fullName" 
+          formControlName="fullName" 
+          type="text" 
+          placeholder="Enter your full name"
+        />
+        <div class="auth-error" *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+          <i class="fas fa-exclamation-circle"></i> Full Name is required
         </div>
       </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" formControlName="email" type="email" />
-        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-          Valid email is required
+
+      <div class="auth-form-group">
+        <label for="email">
+          <i class="fas fa-envelope"></i>
+          Email Address
+        </label>
+        <input 
+          id="email" 
+          formControlName="email" 
+          type="email" 
+          placeholder="Enter your email"
+        />
+        <div class="auth-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <i class="fas fa-exclamation-circle"></i> Valid email is required
         </div>
       </div>
-      <div>
-        <label for="telephoneNumber">Telephone Number</label>
-        <input id="telephoneNumber" formControlName="telephoneNumber" type="text" />
-        <div *ngIf="registerForm.get('telephoneNumber')?.invalid && registerForm.get('telephoneNumber')?.touched">
-          Valid 10-digit phone number is required
+
+      <div class="auth-form-group">
+        <label for="telephoneNumber">
+          <i class="fas fa-phone"></i>
+          Phone Number
+        </label>
+        <input 
+          id="telephoneNumber" 
+          formControlName="telephoneNumber" 
+          type="tel" 
+          placeholder="Enter your phone number"
+        />
+        <div class="auth-error" *ngIf="registerForm.get('telephoneNumber')?.invalid && registerForm.get('telephoneNumber')?.touched">
+          <i class="fas fa-exclamation-circle"></i> Valid 10-digit phone number is required
         </div>
       </div>
-      <div>
-        <label for="password">Password</label>
-        <input id="password" formControlName="password" type="password" />
-        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-          Password must be at least 6 characters
+
+      <div class="auth-form-row">
+        <div class="auth-form-group">
+          <label for="password">
+            <i class="fas fa-lock"></i>
+            Password
+          </label>
+          <div class="password-input">
+            <input 
+              id="password" 
+              formControlName="password" 
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Create password"
+            />
+            <i 
+              [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+              (click)="showPassword = !showPassword">
+            </i>
+          </div>
+          <div class="auth-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <i class="fas fa-exclamation-circle"></i> Password must be at least 6 characters
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="confirmPassword">
+            <i class="fas fa-lock"></i>
+            Confirm Password
+          </label>
+          <div class="password-input">
+            <input 
+              id="confirmPassword" 
+              formControlName="confirmPassword" 
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              placeholder="Confirm password"
+            />
+            <i 
+              [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+              (click)="showConfirmPassword = !showConfirmPassword">
+            </i>
+          </div>
+          <div class="auth-error" *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+            <i class="fas fa-exclamation-circle"></i> Passwords do not match
+          </div>
         </div>
       </div>
-      <div>
-        <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" formControlName="confirmPassword" type="password" />
-        <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
-          Passwords do not match
-        </div>
+
+      <button type="submit" class="auth-button" [disabled]="loading || registerForm.invalid">
+        <i class="fas fa-user-plus"></i>
+        {{ loading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+
+      <div class="auth-error" *ngIf="error">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{ error }}
       </div>
-      <button type="submit" [disabled]="loading">Register</button>
-      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <div class="auth-login-link">
+        Already have an account? <a routerLink="/login">Sign in</a>
+      </div>
     </form>
   </div>
 </div>

@@ -1,123 +1,192 @@
 <div class="profile-container">
   <div class="profile-box">
-    <h2>User Profile</h2>
-    <p class="profile-subtitle">Manage your account details</p>
+    <!-- Header Section -->
+    <div class="profile-header">
+      <h2>My Profile</h2>
+      <p class="profile-subtitle">Manage your account settings and personal information</p>
+    </div>
 
     <!-- Loading State -->
-    <div *ngIf="loading" class="loading">
-      Loading profile data...
+    <div class="profile-loading" *ngIf="loading">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Loading your profile...</span>
     </div>
 
     <!-- Error State -->
-    <div *ngIf="error" class="error">
-      {{ error }}
+    <div class="profile-error" *ngIf="error">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ error }}</span>
     </div>
 
-    <!-- Profile Information -->
-    <div class="profile-info" *ngIf="user && !loading">
-      <div class="profile-picture">
-        <img [src]="profilePicture" alt="Profile Picture" *ngIf="profilePicture" />
-        <div class="profile-placeholder" *ngIf="!profilePicture">
-          {{ user.fullName.charAt(0) }}
+    <!-- Profile Content -->
+    <div class="profile-content" *ngIf="!loading && !error">
+      <!-- Profile Picture Section -->
+      <div class="profile-picture-section">
+        <div class="profile-picture">
+          <img [src]="profilePicture || 'assets/default-avatar.png'" alt="Profile Picture">
+          <div class="profile-picture-overlay">
+            <label class="profile-upload-btn">
+              <i class="fas fa-camera"></i>
+              <span>Change Photo</span>
+              <input type="file" accept="image/*" (change)="onFileChange($event)" style="display: none;">
+            </label>
+          </div>
         </div>
-        <input type="file" (change)="onFileChange($event)" accept="image/*" id="profilePicInput" hidden />
-        <label for="profilePicInput" class="profile-upload-btn">Upload Picture</label>
+        <h3 class="profile-name">{{ user?.fullName }}</h3>
+        <p class="profile-role">{{ user?.role }}</p>
       </div>
 
-      <div class="profile-user-details">
-        <div class="profile-detail-group">
-          <label>Full Name:</label>
-          <span>{{ user.fullName }}</span>
+      <!-- Personal Information Section -->
+      <div class="profile-details-section">
+        <div class="profile-details-header">
+          <h3>
+            <i class="fas fa-user"></i>
+            Personal Information
+          </h3>
+          <button class="profile-edit-btn" (click)="toggleEditMode()" *ngIf="!editMode">
+            <i class="fas fa-edit"></i>
+            Edit Profile
+          </button>
         </div>
-        <div class="profile-detail-group">
-          <label>Email:</label>
-          <span>{{ user.email }}</span>
-        </div>
-        <div class="profile-detail-group">
-          <label>Telephone:</label>
-          <span>{{ user.telephone }}</span>
-        </div>
-        <div class="profile-detail-group">
-          <label>Role:</label>
-          <span>{{ user.role }}</span>
-        </div>
-        <div class="profile-detail-group">
-          <label>Email Verified:</label>
-          <span>{{ user.isEmailVerified ? 'Yes' : 'No' }}</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Edit/Delete Buttons -->
-    <div class="profile-action-buttons" *ngIf="user && !loading">
-      <button (click)="toggleEditMode()" class="profile-edit-btn">
-        {{ editMode ? 'Save' : 'Edit Profile' }}
-      </button>
-      <button (click)="deleteProfile()" class="profile-delete-btn">Delete Profile</button>
-    </div>
-
-    <!-- Edit Form (Visible when editMode is true) -->
-    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" *ngIf="editMode && user">
-      <div class="profile-form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name" />
-        <div *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.invalid" class="profile-error">
-          Full name is required
-        </div>
-      </div>
-
-      <div class="profile-form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" formControlName="email" placeholder="Enter your email" />
-        <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid" class="profile-error">
-          <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</div>
-          <div *ngIf="profileForm.get('email')?.errors?.['email']">Please enter a valid email address</div>
-        </div>
-      </div>
-
-      <div class="profile-form-group">
-        <label for="telephone">Telephone Number</label>
-        <input type="tel" id="telephone" formControlName="telephone" placeholder="Enter your 10-digit telephone number" />
-        <div *ngIf="profileForm.get('telephone')?.touched && profileForm.get('telephone')?.invalid" class="profile-error">
-          <div *ngIf="profileForm.get('telephone')?.errors?.['required']">Telephone number is required</div>
-          <div *ngIf="profileForm.get('telephone')?.errors?.['pattern']">Please enter a valid 10-digit phone number</div>
-        </div>
-      </div>
-    </form>
-
-    <!-- Reset Password Section -->
-    <div class="profile-reset-password-section" *ngIf="user && !loading">
-      <h3>Reset Password</h3>
-      <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
-        <div class="profile-form-group">
-          <label for="currentPassword">Current Password</label>
-          <input type="password" id="currentPassword" formControlName="currentPassword" placeholder="Enter current password" />
-          <div *ngIf="resetPasswordForm.get('currentPassword')?.touched && resetPasswordForm.get('currentPassword')?.invalid" class="profile-error">
-            Current password is required
+        <div class="profile-details" *ngIf="!editMode">
+          <div class="profile-detail-group">
+            <div class="profile-detail-label">
+              <i class="fas fa-user"></i>
+              Full Name
+            </div>
+            <div class="profile-detail-value">{{ user?.fullName }}</div>
+          </div>
+          <div class="profile-detail-group">
+            <div class="profile-detail-label">
+              <i class="fas fa-envelope"></i>
+              Email
+            </div>
+            <div class="profile-detail-value">
+              {{ user?.email }}
+              <span class="profile-verified-badge" *ngIf="user?.isEmailVerified">
+                <i class="fas fa-check-circle"></i>
+                Verified
+              </span>
+            </div>
+          </div>
+          <div class="profile-detail-group">
+            <div class="profile-detail-label">
+              <i class="fas fa-phone"></i>
+              Phone Number
+            </div>
+            <div class="profile-detail-value">{{ user?.telephone }}</div>
           </div>
         </div>
 
-        <div class="profile-form-group">
-          <label for="newPassword">New Password</label>
-          <input type="password" id="newPassword" formControlName="newPassword" placeholder="Enter new password" />
-          <div *ngIf="resetPasswordForm.get('newPassword')?.touched && resetPasswordForm.get('newPassword')?.invalid" class="profile-error">
-            New password is required
+        <form [formGroup]="profileForm" class="profile-edit-form" *ngIf="editMode" (ngSubmit)="saveProfile()">
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-user"></i>
+              Full Name
+            </label>
+            <input type="text" formControlName="fullName" placeholder="Enter your full name">
+            <div class="error-message" *ngIf="profileForm.get('fullName')?.invalid && profileForm.get('fullName')?.touched">
+              Full name is required
+            </div>
+          </div>
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-envelope"></i>
+              Email
+            </label>
+            <input type="email" formControlName="email" placeholder="Enter your email" readonly>
+          </div>
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-phone"></i>
+              Phone Number
+            </label>
+            <input type="tel" formControlName="telephone" placeholder="Enter your phone number">
+            <div class="error-message" *ngIf="profileForm.get('telephone')?.invalid && profileForm.get('telephone')?.touched">
+              Please enter a valid 10-digit phone number
+            </div>
+          </div>
+          <div class="profile-form-actions">
+            <button type="button" class="profile-cancel-btn" (click)="cancelEdit()">
+              <i class="fas fa-times"></i>
+              Cancel
+            </button>
+            <button type="submit" class="profile-save-btn" [disabled]="!profileForm.valid">
+              <i class="fas fa-save"></i>
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Password Reset Section -->
+      <div class="profile-password-section">
+        <div class="profile-section-header">
+          <h3>
+            <i class="fas fa-lock"></i>
+            Password Settings
+          </h3>
+        </div>
+        <form [formGroup]="resetPasswordForm" class="profile-password-form">
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-key"></i>
+              Current Password
+            </label>
+            <div class="password-input">
+              <input [type]="showCurrentPassword ? 'text' : 'password'" formControlName="currentPassword" placeholder="Enter current password">
+              <i class="fas" [ngClass]="showCurrentPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="showCurrentPassword = !showCurrentPassword"></i>
+            </div>
+          </div>
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-lock"></i>
+              New Password
+            </label>
+            <div class="password-input">
+              <input [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword" placeholder="Enter new password">
+              <i class="fas" [ngClass]="showNewPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="showNewPassword = !showNewPassword"></i>
+            </div>
+          </div>
+          <div class="profile-form-group">
+            <label>
+              <i class="fas fa-lock"></i>
+              Confirm New Password
+            </label>
+            <div class="password-input">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmNewPassword" placeholder="Confirm new password">
+              <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="showConfirmPassword = !showConfirmPassword"></i>
+            </div>
+          </div>
+          <button class="profile-password-btn" [disabled]="!resetPasswordForm.valid" (click)="resetPassword()">
+            <i class="fas fa-save"></i>
+            Update Password
+          </button>
+        </form>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="profile-danger-zone">
+        <div class="profile-section-header">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i>
+            Danger Zone
+          </h3>
+        </div>
+        <div class="profile-danger-content">
+          <div class="danger-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>
+          </div>
+          <div class="danger-actions">
+            <button class="profile-delete-btn" (click)="deleteProfile()">
+              <i class="fas fa-trash-alt"></i>
+              Delete My Account
+            </button>
           </div>
         </div>
-
-        <div class="profile-form-group">
-          <label for="confirmNewPassword">Confirm New Password</label>
-          <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" placeholder="Confirm new password" />
-          <div *ngIf="resetPasswordForm.get('confirmNewPassword')?.touched && resetPasswordForm.get('confirmNewPassword')?.invalid" class="profile-error">
-            Please confirm your new password
-          </div>
-          <div *ngIf="resetPasswordForm.errors?.['mismatch'] && resetPasswordForm.get('confirmNewPassword')?.touched" class="profile-error">
-            Passwords do not match
-          </div>
-        </div>
-
-        <button type="submit" [disabled]="resetPasswordForm.invalid">Reset Password</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

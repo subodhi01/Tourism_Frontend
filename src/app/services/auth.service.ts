@@ -76,4 +76,28 @@ export class AuthService {
   logout() {
     this.userSubject.next(null);
   }
+
+  forgetPassword(email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.post(`${this.apiUrl}/auth/forget-password`, { email }, { headers, withCredentials: true });
+  }
+
+  verifyResetOTP(email: string, otp: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.post(`${this.apiUrl}/auth/verify-reset-otp`, { email, otp }, { headers, withCredentials: true });
+  }
+
+  resetPassword(email: string, otp: string, newPassword: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.post(`${this.apiUrl}/auth/reset-password`, { email, otp, newPassword }, { headers, withCredentials: true });
+  }
 }
