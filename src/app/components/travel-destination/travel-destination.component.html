@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="card-container">
+    <div class="card" *ngFor="let place of travelPlaces">
+      <h3>{{ place.placeName }}</h3>
+      <p><strong>Location:</strong> <a href="{{ place.locationLink }}" target="_blank">View Map</a></p>
+      <p><strong>Contact:</strong> {{ place.contactInfo }}</p>
+      <div class="button-group">
+        <button (click)="sendRequest(place)">Send Request</button>
+        <button (click)="showDetails(place)">More Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- More Details Modal -->
+  <div class="modal" *ngIf="selectedPlace">
+    <div class="modal-content">
+      <h2>{{ selectedPlace!.placeName }}</h2>
+      <p><strong>Owner:</strong> {{ selectedPlace!.ownerName }}</p>
+      <p><strong>Email:</strong> {{ selectedPlace!.ownerEmail }}</p>
+      <p><strong>Description:</strong> {{ selectedPlace!.description }}</p>
+      <p><strong>Booking Instructions:</strong> {{ selectedPlace!.bookingInstructions }}</p>
+      <p><strong>Contact:</strong> {{ selectedPlace!.contactInfo }}</p>
+      <p *ngIf="selectedPlace!.discountNotices"><strong>Discounts:</strong> {{ selectedPlace!.discountNotices }}</p>
+      <div *ngIf="selectedPlace!.facilities?.length">
+        <h4>Facilities:</h4>
+        <ul>
+          <li *ngFor="let facility of selectedPlace!.facilities">
+            <strong>{{ facility.name }}</strong>: {{ facility.description }}<br>
+            Avg Price: {{ facility.averagePrice | currency }} | Per Person: {{ facility.pricePerPerson | currency }}<br>
+            Duration: {{ facility.duration }} | Availability: {{ facility.availability }}<br>
+            <span *ngIf="facility.specialNotices">Notes: {{ facility.specialNotices }}</span>
+          </li>
+        </ul>
+      </div>
+      <button (click)="closeDetails()">Close</button>
+    </div>
+  </div>
+</div>
