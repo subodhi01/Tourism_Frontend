@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateToPlaces() {
-    this.router.navigate(['/auth/places']);
+    this.router.navigate(['/places']);
   }
 
   navigateToTourPackages() {

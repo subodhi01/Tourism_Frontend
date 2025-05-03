@@ -43,9 +43,11 @@ import { ReviewsComponent } from './components/reviews/reviews.component';
 import { TravelDestinationComponent } from './components/travel-destination/travel-destination.component';
 import { authGuard } from './auth.guard';
 import { HomeComponent } from './components/home/home.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { TourPackagesComponent } from './tour-packages/tour-packages.component';
 
 export const routes: Routes = [
-  { path: 'auth/places', component: PlacesComponent },
+  { path: 'places', component: PlacesComponent },
   { path: 'request-booking', component: RequestBookingComponent },
   { path: 'auth/home', component: HomeComponent },
   { path: 'auth/login', component: LoginComponent },
@@ -57,6 +59,8 @@ export const routes: Routes = [
   { path: 'reviews/:type/:itemId', component: ReviewsComponent },
   { path: 'reviews', component: ReviewScreenComponent },
   { path: 'destinations', component: TravelDestinationComponent },
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'tour-packages', component: TourPackagesComponent },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   //{ path: '**', redirectTo: 'auth/login' }
 ];
