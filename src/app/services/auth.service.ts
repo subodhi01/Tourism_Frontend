@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface User {
   id: string;
@@ -19,7 +20,18 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   currentUser$: Observable<User | null> = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    // Initialize user state from localStorage only in browser
+    if (isPlatformBrowser(this.platformId)) {
+      const storedUser = localStorage.getItem('currentUser');
+      if (storedUser) {
+        this.userSubject.next(JSON.parse(storedUser));
+      }
+    }
+  }
 
   register(data: any): Observable<any> {
     const headers = new HttpHeaders({
@@ -60,12 +72,14 @@ export class AuthService {
 
   setUserData(user: User | null) {
     this.userSubject.next(user);
-    if (user) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      localStorage.setItem('userEmail', user.email);
-    } else {
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('userEmail');
+    if (isPlatformBrowser(this.platformId)) {
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('userEmail', user.email);
+      } else {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('userEmail');
+      }
     }
   }
 
